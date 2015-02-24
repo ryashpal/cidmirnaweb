@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}CID miRNA {% endblock %}
+{% block content %}
+<div class="main">
+    <h1>CID miRNA</h1>
+<p>
+Computer-assisted identification of micro-RNA using an SCFG model. Upload your data and we will send you 
+a list of predicted miRNA sequences.</p>
+
+{% crispy form form.helper %}
+
+</div>
+{% endblock content %}

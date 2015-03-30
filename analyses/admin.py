@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from analyses.models import Analysis, Filename
+
+admin.site.register(Analysis)
+admin.site.register(Filename)

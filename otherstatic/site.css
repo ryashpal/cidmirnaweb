@@ -2,11 +2,19 @@ body {
   padding-top: 50px;
 }
 .main {
-  padding: 40px 15px;
+  padding: 20px 15px;
   text-align: center;
 }
 
 
 .about {
     padding: 40px 15px;
+}
+
+.logo {
+    text-align: center;
+}
+
+img.logo {
+    width: 320px;
 }

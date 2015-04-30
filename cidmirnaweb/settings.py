@@ -12,11 +12,26 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
 
+EXTERNAL_BASE_URL = 'http://melb.agrf.org.au:8888'
+INTERNAL_BASE_URL = 'http://biowebs.agrf.org.au'
 
+# How many analyses we let run at the same time
+MAX_SIMULTANEOUS_ANALYSIS = 1 
+
+DELIVERY_DIRECTORY = 'delivery'
+
+ANALYSIS_CODE_ROOT = '/home/dubrova/src/CID-miRNA'
+
+# Where to stick the uploaded data
 UPLOAD_DIRECTORY = os.path.join(BASE_DIR, 'uploaded')
 
 ADMINS = (
      ('Alejandro Dubrovsky', 'alex.dubrovsky@agrf.org.au'),
+)
+
+MANAGERS = (
+    ('Alejandro Dubrovsky', 'alex.dubrovsky@agrf.org.au'),
+    ('Sonika Tyagi', 'sonika.tyagi@agrf.org.au'),
 )
 
 EMAIL_HOST = 'exchmelb01.agrf.org.au'
@@ -99,6 +114,8 @@ STATIC_ROOT = '/home/dubrova/public_html/cidmirnaweb/static/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/cidmirna/static/'
 
+DELIVERY_ROOT = os.path.join(STATIC_ROOT, DELIVERY_DIRECTORY)
+DELIVERY_URL = os.path.join(STATIC_URL, DELIVERY_DIRECTORY)
 
 DJANGO_STATIC_MEDIA_ROOTS = [STATIC_ROOT]
 DJANGO_STATIC_SAVE_PREFIX = os.path.join(STATIC_ROOT, 'django_static_links')
@@ -142,6 +159,14 @@ class NoDBFilter(logging.Filter):
     """
     def filter(self, record):
         return record.name != 'django.db.backends'
+
+class NoParamikoFilter(logging.Filter):
+    """
+    Let through anything that's not emitted by paramiko
+    """
+    def filter(self, record):
+        return not record.name.startswith('paramiko')
+
 
 logDirectory = os.path.join(BASE_DIR, 'logs')
 logPath = os.path.join(logDirectory,'log-%s.txt' % datetime.datetime.now().strftime('%Y%m%d'))

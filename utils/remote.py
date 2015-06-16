@@ -15,8 +15,7 @@ class Remote(object):
     StandardMachines = {
         'blade_dev01' : {
             'hostname' : 'blade_dev01.agrf.org.au',
-            'username' : 'dubrova',
-            'timeout' : 20
+            'username' : 'dubrova'
         }
     }
 

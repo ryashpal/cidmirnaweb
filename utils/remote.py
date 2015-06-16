@@ -26,70 +26,49 @@ class Remote(object):
         return cls(**details)
 
 
-    def __init__(self, hostname, username, password=None, timeout=DefaultTimeout):
+    def __init__(self, hostname, username, password=None):
         self.hostname = hostname
         self.username = username
         self.password = password
-        self.timeout = timeout
 
-        self._connection = None
+        self._ssh_client = None
         self._sftp = None
-        self._client = None
 
 
     def __del__(self):
-        if self._sftp is not None:
-            self._sftp.close()
-            self._sftp = None
+        self.close()
 
-        if self._client is not None:
-            self._client.close()
-            self._client = None
-
-        if self._connection is not None:
-            self._connection.close()
-            self._connection = None
-
-    @property
-    def connection(self):
-        if self._connection is None:
-
-            self._connection = paramiko.Transport(self.hostname)
-            self._connection.connect(username=self.username, password=self.password)
-
-        return self._connection
 
     @property
     def ssh_client(self):
         """
         Returns ssh client to destination
         """
-        if self._client is None:
-            client = paramiko.SSHClient()
-            client.load_system_host_keys()
-            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(self.hostname, username=self.username, password=self.password, timeout=self.timeout)
-            self._client = client
-            logging.info("Created ssh client")
-        return self._client
+
+        # HACKish: Private _transport is set to None whenever the SSHClient object is closed
+        if self._ssh_client_is_closed():
+            self._ssh_client = self.open_ssh_client()
+        return self._ssh_client
 
 
     @property
     def sftp(self):
-        if self._sftp is None:
+        if self._sftp is None or self._ssh_client_is_closed():
             self._sftp = self.ssh_client.open_sftp()
-            logging.info("Opened sftp channel")
         return self._sftp
 
+
+    def _ssh_client_is_closed(self):
+        return self._ssh_client is None or self._ssh_client._transport is None
 
     def close(self):
         if self._sftp is not None:
             self._sftp.close()
             self._sftp = None
 
-        if self._connection is not None:
-            self._connection.close()
-            self._connection = None
+        if self._ssh_client is not None:
+            self._ssh_client.close()
+            self._ssh_client = None
 
 
     def exists(self, path):
@@ -113,6 +92,15 @@ class Remote(object):
         """
         return self.exists("/proc/%s" % process_id)
 
+    def open_ssh_client(self):
+        """
+        Returns ssh client to destination
+        """
+        client = paramiko.SSHClient()
+        client.load_system_host_keys()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(self.hostname, username=self.username, password=self.password)
+        return client
 
     _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
 

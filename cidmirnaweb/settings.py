@@ -32,6 +32,7 @@ ADMINS = (
 MANAGERS = (
     ('Alejandro Dubrovsky', 'alex.dubrovsky@agrf.org.au'),
     ('Sonika Tyagi', 'sonika.tyagi@agrf.org.au'),
+    ('CID-miRNA', 'cidmirna.help@gmail.com'),
 )
 
 EMAIL_HOST = 'exchmelb01.agrf.org.au'

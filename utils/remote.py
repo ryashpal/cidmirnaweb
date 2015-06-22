@@ -53,7 +53,11 @@ class Remote(object):
     @property
     def sftp(self):
         if self._sftp is None or self._ssh_client_is_closed():
-            self._sftp = self.ssh_client.open_sftp()
+            try:
+                self._sftp = self.ssh_client.open_sftp()
+            except paramiko.SFTPError as error:
+                # convert to something more easily catchable
+                raise IOError("%s" % error)
         return self._sftp
 
 

@@ -16,7 +16,12 @@ class Remote(object):
         'blade_dev01' : {
             'hostname' : 'blade_dev01.agrf.org.au',
             'username' : 'dubrova'
-        }
+        },
+        'blade_dev03' : {
+            'hostname' : 'blade_dev03.agrf.org.au',
+            'username' : 'dubrova'
+        }        
+
     }
 
     @classmethod

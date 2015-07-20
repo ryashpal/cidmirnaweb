@@ -143,7 +143,7 @@ def analyse_outstanding():
         target_file = os.path.join(client_data_directory, 'uploaded%s' % analysis.pk)
 
         logging.info("Connecting for %s" % analysis)
-        machine = Remote.standard_machine('blade_dev01')
+        machine = Remote.standard_machine(settings.ANALYSIS_MACHINE)
         logging.info("Putting file for analysis %s" % analysis)
         try:
             machine.sftp.put(source_file, target_file)
@@ -154,13 +154,13 @@ def analyse_outstanding():
         logging.info("File for analysis %s uploaded" % analysis)
         # start the process
         command_line = './run.sh -vvv -p --output-directory %s %s' % (client_data_directory, target_file)
-        job = Job(analysis=analysis, machine="blade_dev01", command_line=command_line)
+        job = Job(analysis=analysis, machine=machine.hostname, command_line=command_line)
         full_command = """cd %(directory)s; nohup bash -lc %(command_line)s > /dev/null 2>&1 < /dev/null & echo $!"""  % {
             'directory' : settings.ANALYSIS_CODE_ROOT,
             'command_line' : machine.quote_parameter(command_line)   
         }
-        command = ['/usr/bin/ssh', 'dubrova@blade_dev01', full_command]
-        logging.info("Running: '%s' in 'blade_dev01'" % (' '.join(command), ))
+        command = ['/usr/bin/ssh', '%s@%s' % (machine.username, machine.hostname), full_command]
+        logging.info("Running: '%s' in '%s'" % (' '.join(command), machine.hostname))
         proc = subprocess.Popen(command, close_fds=True, stdout=subprocess.PIPE)
         job.process_id = int(proc.stdout.read())   #capture the remote PID
         job.save()

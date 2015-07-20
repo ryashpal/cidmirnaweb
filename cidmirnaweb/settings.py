@@ -25,6 +25,8 @@ ANALYSIS_CODE_ROOT = '/home/dubrova/src/CID-miRNA'
 # Where to stick the uploaded data
 UPLOAD_DIRECTORY = os.path.join(BASE_DIR, 'uploaded')
 
+ANALYSIS_MACHINE = 'blade_dev03'
+
 ADMINS = (
      ('Alejandro Dubrovsky', 'alex.dubrovsky@agrf.org.au'),
 )

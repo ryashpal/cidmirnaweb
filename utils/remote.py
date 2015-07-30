@@ -20,7 +20,11 @@ class Remote(object):
         'blade_dev03' : {
             'hostname' : 'blade_dev03.agrf.org.au',
             'username' : 'dubrova'
-        }        
+        },
+        'biowebs' : {
+            'hostname' : 'biowebs',
+            'username' : 'Dubrova'
+        }
 
     }
 

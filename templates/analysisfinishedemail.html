@@ -1,0 +1,23 @@
+{% load urltools %}
+{# Email sent when an analysis finished successfully. #}
+
+Analysis ID: {{ analysis.pk }}
+Email: {{ analysis.email }}
+Organism: {{ analysis.organism }}
+External fasta link: {{ fasta_url }}
+External structure link: {{ structure_url }}
+Internal fasta link: {{ fasta_url|internalise_url }}
+Internal structure link: {{ structure_url|internalise_url }}
+
+Email:
+
+Hi,
+
+The results for the predicted miRNA sequences and structures in the {{ analysis.organism }} data that you submitted to http://melb.agrf.org.au:8888/ are ready for download:
+
+Sequences:  <a href="{{ fasta_url }}">{{ fasta_url }}</a>
+Structures: <a href="{{ structure_url }}">{{ structure_url }}</a>
+
+Thanks for trying it out. Please cite the tool as "CID-miRNA: A web server for prediction of novel miRNA precursors in human genome, Tyagi S. et. al., Biochemical and Biophysical Research Communications Volume 372, Issue 4, 8 August 2008, Pages 831-834" if you are publishing the results.
+
+The CID-miRNA team

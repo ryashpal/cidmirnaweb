@@ -37,6 +37,8 @@ from utils.remote import Remote
 AllowedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 def check_on_running_jobs():
+    from django.template import Context, loader
+
     running_jobs = Job.objects.filter(exit_code__isnull=True, process_id__isnull=False)
     for job in running_jobs:
         machine = Remote.standard_machine(job.machine)
@@ -107,15 +109,15 @@ def check_on_running_jobs():
                 fasta.save()
                 fasta_url = "%s%s" % (settings.EXTERNAL_BASE_URL, os.path.join(settings.DELIVERY_URL, output_directory, 'mirna.fa'))
 
-            mail_managers("CID-miRNA files are ready to be delivered", """
-Analysis ID: %s
-Email: %s
-Organism: %s
-External links: %s
-Internal links: %s
-""" % (job.analysis.pk, job.analysis.email, job.analysis.organism, 
-    ", ".join([structure_url, fasta_url]),
-    ", ".join(url.replace(settings.EXTERNAL_BASE_URL, settings.INTERNAL_BASE_URL) for url in [structure_url, fasta_url])))
+            context = Context({
+                'analysis' : job.analysis,
+                'structure_url' : structure_url,
+                'fasta_url' : fasta_url
+                })
+
+            content = loader.render_to_string('analysisfinishedemail.html', context_instance=context)
+
+            mail_managers("CID-miRNA files are ready to be delivered", content)
 
 
 def analyse_outstanding():

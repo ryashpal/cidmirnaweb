@@ -150,7 +150,7 @@ def analyse_outstanding():
         try:
             machine.sftp.put(source_file, target_file)
         except IOError as error:
-            logging.error("Couldn't copy %s to %s on blade_dev01: %s" % (source_file, target_file, error))
+            logging.error("Couldn't copy %s to %s on %s: %s" % (source_file, target_file, machine.hostname, error))
             continue
 
         logging.info("File for analysis %s uploaded" % analysis)

@@ -25,7 +25,7 @@ ANALYSIS_CODE_ROOT = '/home/dubrova/src/CID-miRNA'
 # Where to stick the uploaded data
 UPLOAD_DIRECTORY = os.path.join(BASE_DIR, 'uploaded')
 
-ANALYSIS_MACHINE = 'biowebs'
+ANALYSIS_MACHINE = 'valhalla-dev01'
 
 ADMINS = (
      ('Alejandro Dubrovsky', 'alex.dubrovsky@agrf.org.au'),

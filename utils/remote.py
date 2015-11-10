@@ -24,7 +24,15 @@ class Remote(object):
         'biowebs' : {
             'hostname' : 'biowebs',
             'username' : 'Dubrova'
-        }
+        },
+        'valhalla-dev01' : {
+            'hostname' : 'valhalla-dev01.agrf.org.au',
+            'username' : 'Dubrova'
+        },
+        'valhalla-dev02' : {
+            'hostname' : 'valhalla-dev02.agrf.org.au',
+            'username' : 'Dubrova'
+        }        
 
     }
 

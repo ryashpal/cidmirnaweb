@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('filename', models.TextField(blank=True)),
-                ('analysis', models.ForeignKey(to='analyses.Analysis')),
+                ('analysis', models.ForeignKey(to='analyses.Analysis', on_delete=models.CASCADE)),
             ],
             options={
             },

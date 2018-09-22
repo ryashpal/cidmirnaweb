@@ -1,7 +1,7 @@
 import os
 import logging
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -49,3 +49,4 @@ def home(request):
 
 def analysis_submitted(request):
     return render(request, 'submitted.html')
+    

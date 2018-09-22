@@ -1,4 +1,5 @@
 *.pyc
 logs/*
 uploaded/*
-
+cidmirna.sqlite
+static/*

@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('exit_code', models.IntegerField(null=True, blank=True)),
                 ('start_time', models.DateTimeField(auto_now_add=True, null=True)),
                 ('end_time', models.DateTimeField(null=True, blank=True)),
-                ('analysis', models.ForeignKey(to='analyses.Analysis')),
+                ('analysis', models.ForeignKey(to='analyses.Analysis', on_delete=models.CASCADE)),
             ],
             options={
             },

@@ -13,26 +13,11 @@ class Remote(object):
     """
 
     StandardMachines = {
-        'blade_dev01' : {
-            'hostname' : 'blade_dev01.agrf.org.au',
-            'username' : 'dubrova'
-        },
-        'blade_dev03' : {
-            'hostname' : 'blade_dev03.agrf.org.au',
-            'username' : 'dubrova'
-        },
-        'biowebs' : {
-            'hostname' : 'biowebs',
-            'username' : 'Dubrova'
-        },
-        'valhalla-dev01' : {
-            'hostname' : 'valhalla-dev01.agrf.org.au',
-            'username' : 'Dubrova'
-        },
-        'valhalla-dev02' : {
-            'hostname' : 'valhalla-dev02.agrf.org.au',
-            'username' : 'Dubrova'
-        }        
+        # 'blade_dev01' : {
+        #     'hostname' : 'blade_dev01.agrf.org.au',
+        #     'username' : 'dubrova'
+        # },
+ 
 
     }
 
@@ -123,19 +108,4 @@ class Remote(object):
         return client
 
     _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
-
-    @classmethod
-    def quote_parameter(cls, s):
-        """
-        (Taken from Python 3's shlex module)
-        Return a shell-escaped version of the string *s*.
-        """
-        if not s:
-            return "''"
-        if cls._find_unsafe(s) is None:
-            return s
-
-        # use single quotes, and put single quotes into double quotes
-        # the string $'b is then quoted as '$'"'"'b'
-        return "'" + s.replace("'", "'\"'\"'") + "'"
 

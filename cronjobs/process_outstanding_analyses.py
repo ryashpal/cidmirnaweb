@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 """
 Go through all the analyses we haven't done and try to do them.
 Go through all the completed analyses not sent and send them
@@ -16,11 +16,8 @@ if __name__ == '__main__':
     if path not in sys.path:
         sys.path.append(path)
 
-    if not os.environ.get('DJANGO_SETTINGS_MODULE'):
-        if os.environ.get('HOSTNAME') == 'biowebs.agrf.org.au':
-            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cidmirnaweb.settings")
-        else:
-            os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cidmirnaweb.settings")
+    from utils import environment
+    environment.setup_settings()
 
     del path
 
@@ -121,6 +118,7 @@ def check_on_running_jobs():
 
 
 def analyse_outstanding():
+    import shlex
     for analysis in Analysis.objects.filter(analysed=False):
         # check if there are already enough jobs running
         if Job.objects.filter(exit_code__isnull=True).count() >= settings.MAX_SIMULTANEOUS_ANALYSIS:
@@ -159,7 +157,7 @@ def analyse_outstanding():
         job = Job(analysis=analysis, machine=machine.hostname, command_line=command_line)
         full_command = """cd %(directory)s; nohup bash -lc %(command_line)s > /dev/null 2>&1 < /dev/null & echo $!"""  % {
             'directory' : settings.ANALYSIS_CODE_ROOT,
-            'command_line' : machine.quote_parameter(command_line)   
+            'command_line' : shlex.quote(command_line)   
         }
         command = ['/usr/bin/ssh', '%s@%s' % (machine.username, machine.hostname), full_command]
         logging.info("Running: '%s' in '%s'" % (' '.join(command), machine.hostname))

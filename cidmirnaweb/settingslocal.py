@@ -15,8 +15,6 @@ ADMINS = (
 
 MANAGERS = (
     ('Alejandro Dubrovsky', 'alito@organicrobot.com'),
-    ('Sonika Tyagi', 'sonika.tyagi@gmail.com'),
-    ('CID-miRNA', 'cidmirna.help@gmail.com'),
 )
 
 

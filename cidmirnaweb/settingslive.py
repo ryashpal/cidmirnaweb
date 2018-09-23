@@ -2,7 +2,9 @@ from .settingscommon import *
 
 import os
 
-EXTERNAL_BASE_URL = 'http://melb.agrf.org.au:8888'
+ALLOWED_HOSTS = ['159.65.128.46']
+
+EXTERNAL_BASE_URL = ALLOWED_HOSTS[0]
 
 ANALYSIS_CODE_ROOT = '/home/cidmirna/src/CID-miRNA'
 
@@ -32,9 +34,6 @@ STATIC_URL = '/static/'
 
 DELIVERY_ROOT = os.path.join(STATIC_ROOT, DELIVERY_DIRECTORY)
 DELIVERY_URL = os.path.join(STATIC_URL, DELIVERY_DIRECTORY)
-
-
-ALLOWED_HOSTS = ['biowebs.agrf.org.au', 'melb.agrf.org.au']
 
 
 # Development database instance

@@ -6,7 +6,7 @@ ALLOWED_HOSTS = ['159.65.128.46']
 
 EXTERNAL_BASE_URL = ALLOWED_HOSTS[0]
 
-ANALYSIS_CODE_ROOT = '/home/cidmirna/src/CID-miRNA'
+ANALYSIS_CODE_ROOT = '/home/cidmirna/cidmirna'
 
 ANALYSIS_MACHINE = 'localhost'
 
@@ -20,7 +20,6 @@ MANAGERS = (
     ('Sonika Tyagi', 'sonika.tyagi@gmail.com'),
     ('CID-miRNA', 'cidmirna.help@gmail.com'),
 )
-
 
 
 EMAIL_HOST = 'localhost'

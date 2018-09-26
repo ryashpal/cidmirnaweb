@@ -109,13 +109,13 @@ def check_on_running_jobs():
                 fasta.save()
                 fasta_url = "%s%s" % (settings.EXTERNAL_BASE_URL, os.path.join(settings.DELIVERY_URL, output_directory, 'mirna.fa'))
 
-            context = Context({
+            context = {
                 'analysis' : job.analysis,
                 'structure_url' : structure_url,
                 'fasta_url' : fasta_url
-                })
+                }
 
-            content = loader.render_to_string('analysisfinishedemail.html', context_instance=context)
+            content = loader.render_to_string('analysisfinishedemail.html', context=context)
 
             mail_managers("CID-miRNA files are ready to be delivered", content)
 

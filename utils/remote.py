@@ -14,7 +14,7 @@ class Remote(object):
 
     StandardMachines = {
         'bioinformaticslab' : {
-             'hostname' : '159.65.128.46',
+             'hostname' : 'bioinformaticslab',
              'username' : 'cidmirna',
              'port' : 11022
         },

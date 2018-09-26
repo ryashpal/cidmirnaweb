@@ -83,7 +83,7 @@ def check_on_running_jobs():
                 output_directory = ''.join(random.choice(AllowedCharacters) for _ in range(15))
                 full_directory = os.path.join(settings.DELIVERY_ROOT, output_directory)
                 if not os.path.exists(full_directory):
-                    os.mkdir(full_directory)
+                    os.makedirs(full_directory)
                     break
 
             client_data_directory = os.path.join(settings.ANALYSIS_CODE_ROOT, 'clientdata')

@@ -158,6 +158,9 @@ LOGGING = {
     },
     'loggers' : {},
     'filters' : {
+        'noparamiko' : {
+            '()' : NoParamikoFilter
+        }
     }
 }
 

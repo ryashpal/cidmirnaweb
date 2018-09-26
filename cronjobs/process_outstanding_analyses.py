@@ -35,6 +35,9 @@ AllowedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456
 
 def check_on_running_jobs():
     from django.template import Context, loader
+    from django.utils import timezone
+
+    import pytz
 
     running_jobs = Job.objects.filter(exit_code__isnull=True, process_id__isnull=False)
     for job in running_jobs:
@@ -68,7 +71,7 @@ def check_on_running_jobs():
             exit_code = -1
 
         job.exit_code = exit_code
-        job.end_time = datetime.datetime.now()
+        job.end_time = timezone.now()
         job.save()
 
         if succeeded:

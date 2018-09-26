@@ -159,7 +159,10 @@ def analyse_outstanding():
             'directory' : settings.ANALYSIS_CODE_ROOT,
             'command_line' : shlex.quote(command_line)   
         }
-        command = ['/usr/bin/ssh', '%s@%s' % (machine.username, machine.hostname), full_command]
+        command = ['/usr/bin/ssh']
+        if machine.port:
+            command.extend(['-p', str(machine.port)])
+        machine.extend(['%s@%s' % (machine.username, machine.hostname), full_command])
         logging.info("Running: '%s' in '%s'" % (' '.join(command), machine.hostname))
         proc = subprocess.Popen(command, close_fds=True, stdout=subprocess.PIPE)
         job.process_id = int(proc.stdout.read())   #capture the remote PID

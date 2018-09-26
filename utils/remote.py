@@ -28,7 +28,7 @@ class Remote(object):
         return cls(**details)
 
 
-    def __init__(self, hostname, username, password=None, port=22):
+    def __init__(self, hostname, username, password=None, port=None):
         self.hostname = hostname
         self.username = username
         self.password = password

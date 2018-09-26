@@ -139,6 +139,13 @@ class NoParamikoFilter(logging.Filter):
     def filter(self, record):
         return not record.name.startswith('paramiko')
 
+class NoHTTPHostFilter(logging.Filter):
+    """
+    Stop all of those unknown hosts requests
+    """
+
+    def filter(self, record):
+        return record.name != 'django.security.DisallowedHost'
 
 logDirectory = os.path.join(BASE_DIR, 'logs')
 logPath = os.path.join(logDirectory,'log-%s.txt' % datetime.datetime.now().strftime('%Y%m%d'))
@@ -149,17 +156,17 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters' : [],  # Filter out paramiko since it adds too much noise
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html' : True
-        },
     },
     'loggers' : {},
     'filters' : {
         'noparamiko' : {
             '()' : NoParamikoFilter
+        },
+        'noillegalhost' : {
+            '()' : NoHTTPHostFilter
+        },
+        'nodb' : {
+            '()' : NoDBFilter
         }
     }
 }
@@ -191,12 +198,19 @@ LOGGING['handlers']['file'] = {
 
 LOGGING['handlers']['nosql'] = {
         'level' : 'DEBUG',
-        'filters' : ['nodb'],
+        'filters' : ['nodb', 'noparamiko'],
         'class' : 'logging.FileHandler',
         'formatter' : 'verbose',
         'delay' : True,
         'filename' : logNodbPath
     }
+
+LOGGING['handlers']['mail_admins'] = {
+            'level': 'ERROR',
+            'filters' : ['noparamiko', 'noillegalhost'],  # Filter out paramiko since it adds too much noise
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html' : True
+        }
 
 
 LOGGING['loggers'][''] = {

@@ -153,7 +153,7 @@ def analyse_outstanding():
 
         logging.info("File for analysis %s uploaded" % analysis)
         # start the process
-        command_line = './run.sh -vvv -p --output-directory %s %s' % (client_data_directory, target_file)
+        command_line = './runandrecordexitcode.sh -vvv -p --output-directory %s %s' % (client_data_directory, target_file)
         job = Job(analysis=analysis, machine=machine.hostname, command_line=command_line)
         full_command = """cd %(directory)s; nohup bash -lc %(command_line)s > /dev/null 2>&1 < /dev/null & echo $!"""  % {
             'directory' : settings.ANALYSIS_CODE_ROOT,

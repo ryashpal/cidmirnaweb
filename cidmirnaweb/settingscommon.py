@@ -137,7 +137,7 @@ class NoParamikoFilter(logging.Filter):
     Let through anything that's not emitted by paramiko
     """
     def filter(self, record):
-        return not record.name.startswith('paramiko')
+        return not record.name.startswith('paramiko') or record.level >= logging.WARNING
 
 class NoHTTPHostFilter(logging.Filter):
     """
@@ -189,7 +189,7 @@ LOGGING['filters']['nodb'] = {
 
 LOGGING['handlers']['file'] = {
         'level' : 'DEBUG',
-        'filters' : [],
+        'filters' : ['noparamiko'],
         'class' : 'logging.FileHandler',
         'formatter' : 'verbose',
         'delay' : True,

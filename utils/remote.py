@@ -13,10 +13,11 @@ class Remote(object):
     """
 
     StandardMachines = {
-        # 'blade_dev01' : {
-        #     'hostname' : 'blade_dev01.agrf.org.au',
-        #     'username' : 'dubrova'
-        # },
+        'bioinformaticslab' : {
+             'hostname' : '159.65.128.46',
+             'username' : 'cidmirna',
+             'port' : 11022
+        },
  
 
     }
@@ -27,10 +28,11 @@ class Remote(object):
         return cls(**details)
 
 
-    def __init__(self, hostname, username, password=None):
+    def __init__(self, hostname, username, password=None, port=22):
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.port = port
 
         self._ssh_client = None
         self._sftp = None
@@ -104,7 +106,7 @@ class Remote(object):
         client = paramiko.SSHClient()
         client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(self.hostname, username=self.username, password=self.password)
+        client.connect(self.hostname, username=self.username, password=self.password, port=self.port)
         return client
 
     _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search

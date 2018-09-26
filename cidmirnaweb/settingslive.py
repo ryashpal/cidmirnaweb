@@ -8,7 +8,7 @@ EXTERNAL_BASE_URL = ALLOWED_HOSTS[0]
 
 ANALYSIS_CODE_ROOT = '/home/cidmirna/cidmirna'
 
-ANALYSIS_MACHINE = 'localhost'
+ANALYSIS_MACHINE = 'bioinformaticslab'
 
 
 ADMINS = (

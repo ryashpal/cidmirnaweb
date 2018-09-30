@@ -21,6 +21,7 @@ MANAGERS = (
     ('CID-miRNA', 'cidmirna.help@gmail.com'),
 )
 
+EMAIL_AVAILABLE = True
 
 EMAIL_HOST = 'localhost'
 

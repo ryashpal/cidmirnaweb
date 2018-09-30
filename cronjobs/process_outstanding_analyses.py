@@ -110,7 +110,7 @@ def check_on_running_jobs():
 
             content = loader.render_to_string('analysisfinishedemail.html', context=context)
 
-            if getattr(settings, 'EMAIL_HOST'):
+            if getattr(settings, 'EMAIL_AVAILABLE', False):
                 mail_managers("CID-miRNA files are ready to be delivered", content)
 
 

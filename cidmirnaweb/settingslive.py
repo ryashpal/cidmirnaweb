@@ -4,7 +4,7 @@ import os
 
 ALLOWED_HOSTS = ['bioinformaticslab.erc.monash.edu', '159.65.128.46']
 
-EXTERNAL_BASE_URL = ALLOWED_HOSTS[0]
+EXTERNAL_BASE_URL = 'http://%s' % ALLOWED_HOSTS[0]
 
 ANALYSIS_CODE_ROOT = '/home/cidmirna/cidmirna'
 

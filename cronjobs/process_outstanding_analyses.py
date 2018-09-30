@@ -105,7 +105,8 @@ def check_on_running_jobs():
             context = {
                 'analysis' : job.analysis,
                 'structure_url' : structure_url,
-                'fasta_url' : fasta_url
+                'fasta_url' : fasta_url,
+                'public_url' : settings.EXTERNAL_BASE_URL + '/'
                 }
 
             content = loader.render_to_string('analysisfinishedemail.html', context=context)

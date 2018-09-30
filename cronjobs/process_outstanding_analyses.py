@@ -8,6 +8,7 @@ import os, sys
 import logging
 import datetime, subprocess
 import random
+import json
 
 if __name__ == '__main__':
     # need to add grandparent directories to get top directory to be considered a package
@@ -30,8 +31,11 @@ from django.core.mail import mail_admins, mail_managers
 
 from analyses.models import Job, Analysis, Filename
 from utils.remote import Remote
+from utils.runner import SSH, Local
 
 AllowedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+ExitCodeDirectory = 'exitcodes'
 
 def check_on_running_jobs():
     from django.template import Context, loader
@@ -39,36 +43,25 @@ def check_on_running_jobs():
 
     import pytz
 
-    running_jobs = Job.objects.filter(exit_code__isnull=True, process_id__isnull=False)
+    running_jobs = Job.objects.filter(exit_code__isnull=True, process__isnull=False)
     for job in running_jobs:
         machine = Remote.standard_machine(job.machine)
-        if machine.process_running(job.process_id):
+        if job.machine == 'localhost':
+            runner = Local(exit_codes_directory=ExitCodeDirectory)
+        else:
+            runner = SSH(machine, exit_codes_directory=ExitCodeDirectory)
+        process_specs = json.loads(job.process)
+        if runner.still_running(process_specs):
             # still running
             continue
 
         succeeded = False
-        exit_code_filename = os.path.join(settings.ANALYSIS_CODE_ROOT, 'exitcodes', 'exit%s.txt' % job.process_id)
-        try:
-            exit_code_file = machine.sftp.open(exit_code_filename)
-            content = exit_code_file.read()
-            exit_code_file.close()
-            if not content:
-                logging.warn("Exit code file is empty for analysis of : %s" % job.analysis.pk)
-            else:
-                try:
-                    first_line = content.splitlines()[0].strip()
-                    exit_code = int(first_line)
-                    if exit_code == 0:
-                        succeeded = True
-                    else:
-                        logging.error("Job %s exited with code %s" % (job.analysis.pk, exit_code))
-                except ValueError:
-                    logging.error("Exit code file not a number for %s: %s" % (job.analysis.pk, first_line))
-                    exit_code = -2
-        except (IOError, OSError):
-            # file not there. Assume it failed
-            logging.error("No exit code file for job: %s" % job.analysis.pk)
-            exit_code = -1
+
+        exit_code = runner.process_exit_code(process_specs)
+        if exit_code == 0:
+            succeeded = True
+        else:
+            logging.error("Job %s exited with code %s" % (job.analysis.pk, exit_code))
 
         job.exit_code = exit_code
         job.end_time = timezone.now()
@@ -117,7 +110,8 @@ def check_on_running_jobs():
 
             content = loader.render_to_string('analysisfinishedemail.html', context=context)
 
-            mail_managers("CID-miRNA files are ready to be delivered", content)
+            if getattr(settings, 'EMAIL_HOST'):
+                mail_managers("CID-miRNA files are ready to be delivered", content)
 
 
 def analyse_outstanding():
@@ -147,6 +141,10 @@ def analyse_outstanding():
 
         logging.info("Connecting for %s" % analysis)
         machine = Remote.standard_machine(settings.ANALYSIS_MACHINE)
+        if settings.ANALYSIS_MACHINE == 'localhost':
+            runner = Local(exit_codes_directory=ExitCodeDirectory)
+        else:
+            runner = SSH(machine, exit_codes_directory=ExitCodeDirectory)
         logging.info("Putting file for analysis %s" % analysis)
         try:
             machine.sftp.put(source_file, target_file)
@@ -156,20 +154,13 @@ def analyse_outstanding():
 
         logging.info("File for analysis %s uploaded" % analysis)
         # start the process
-        command_line = './runandrecordexitcode.sh -vvv -p --output-directory %s %s' % (client_data_directory, target_file)
-        job = Job(analysis=analysis, machine=machine.hostname, command_line=command_line)
-        full_command = """cd %(directory)s; nohup bash -lc %(command_line)s > /dev/null 2>&1 < /dev/null & echo $!"""  % {
-            'directory' : settings.ANALYSIS_CODE_ROOT,
-            'command_line' : shlex.quote(command_line)   
-        }
-        command = ['/usr/bin/ssh']
-        if machine.port:
-            command.extend(['-p', str(machine.port)])
-        command.extend(['%s@%s' % (machine.username, machine.hostname), full_command])
-        logging.info("Running: '%s' in '%s'" % (' '.join(command), machine.hostname))
-        proc = subprocess.Popen(command, close_fds=True, stdout=subprocess.PIPE)
-        job.process_id = int(proc.stdout.read())   #capture the remote PID
-        job.save()
+        command_line = ['./run.sh', '-vvv', '--position', '--output-directory', client_data_directory, target_file]
+        process_specs = runner.run(command_line, directory=settings.ANALYSIS_CODE_ROOT)
+
+        if process_specs is not None and process_specs != runner.CannotFindExecutableExitCode:
+            job = Job(analysis=analysis, machine=machine.hostname, command_line=command_line)
+            job.process = json.dumps(process_specs)
+            job.save()
 
 
 def main(args):

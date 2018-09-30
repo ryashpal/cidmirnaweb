@@ -18,9 +18,6 @@ MANAGERS = (
 )
 
 
-
-EMAIL_HOST = 'localhost'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

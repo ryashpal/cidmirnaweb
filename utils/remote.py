@@ -24,6 +24,8 @@ class Remote(object):
 
     @classmethod
     def standard_machine(cls, name):
+        if name == 'localhost':
+            return Local()
         details = cls.StandardMachines[name]
         return cls(**details)
 
@@ -111,3 +113,25 @@ class Remote(object):
 
     _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
 
+
+class Local(object):
+
+    hostname = 'localhost'
+
+    @property
+    def sftp(self):
+        return self
+
+    def put(self, source_file, target_file):
+        """
+        Emulate SFTP copying locally
+        """
+
+        import shutil
+
+        return shutil.copyfile(source_file, target_file)
+
+    get = put
+
+    def exists(self, filename):
+        return os.path.exists(filename)

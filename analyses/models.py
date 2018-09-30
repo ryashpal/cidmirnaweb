@@ -34,7 +34,7 @@ class Job(models.Model):
     analysis = models.ForeignKey(Analysis, on_delete=models.CASCADE)
     command_line = models.TextField()
     machine = models.TextField()
-    process_id = models.IntegerField(blank=True, null=True)
+    process = models.TextField(blank=True, null=True)
     exit_code = models.IntegerField(blank=True, null=True)
     start_time = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     end_time = models.DateTimeField(blank=True, null=True)

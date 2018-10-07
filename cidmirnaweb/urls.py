@@ -16,17 +16,28 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
+from django.conf.urls.static import static
 
-from cidmirnaweb import views 
+from bioinformatics import views 
 from analyses import views as analysesviews
+from cidmirnaweb import views as cidmirnawebviews
 
 urlpatterns = [
     url(r'^theadmin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
-    url(r'^about$', views.about, name='about'),
+    url(r'^cidmirna$', analysesviews.cidmirna, name='cidmirna'),
+    url(r'^about$', cidmirnawebviews.about, name='about'),
     url(r'^submitted$', analysesviews.analysis_submitted, name='success'),
 
-]
+    url(r'^people$', views.people, name='people'),
+    url(r'^research$', views.research, name='research'),
+    url(r'^publications$', views.publications, name='publications'),
+    url(r'^training$', views.training, name='training'),
+    url(r'^news$', views.news, name='news'),
+    url(r'^froala_editor/', include('froala_editor.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 
 if settings.DEBUG:

@@ -21,7 +21,7 @@ def save_file(request_file, filename):
         for chunk in request_file.chunks():
             destination.write(chunk)
 
-def home(request):
+def cidmirna(request):
     if request.POST:
         form = AnalysisForm(request.POST, request.FILES)
         if form.is_valid():

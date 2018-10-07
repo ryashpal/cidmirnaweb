@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'froala_editor',
     'analyses',
+    'bioinformatics'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +122,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'otherstatic'),
 ]
+
+STATIC_URL = '/static/'
+
+DELIVERY_ROOT = os.path.join(STATIC_ROOT, DELIVERY_DIRECTORY)
+DELIVERY_URL = os.path.join(STATIC_URL, DELIVERY_DIRECTORY)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 import datetime

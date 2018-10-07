@@ -30,11 +30,6 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-STATIC_URL = '/static/'
-
-DELIVERY_ROOT = os.path.join(STATIC_ROOT, DELIVERY_DIRECTORY)
-DELIVERY_URL = os.path.join(STATIC_URL, DELIVERY_DIRECTORY)
-
 
 # Development database instance
 DATABASES = {

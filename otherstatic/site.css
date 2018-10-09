@@ -18,3 +18,10 @@ body {
 img.logo {
     width: 320px;
 }
+
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        float: right;
+    }    
+}

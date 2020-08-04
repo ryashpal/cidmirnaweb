@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^theadmin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^cidmirna$', analysesviews.cidmirna, name='cidmirna'),
+    url(r'^datasource_comparison$', cidmirnawebviews.datasource_comparison, name='datasource_comparison'),
     url(r'^about$', cidmirnawebviews.about, name='about'),
     url(r'^submitted$', analysesviews.analysis_submitted, name='success'),
 

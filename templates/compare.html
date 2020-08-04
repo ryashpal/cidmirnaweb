@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+
+{% block title %}CID miRNA {% endblock %}
+{% block content %}
+    <div id="upsetPlot">
+      <svg width="1390" height="720" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="plot">
+         <g transform="translate(150,20)" fill="white">
+            <g id="upsetCircles" transform="translate(20,440)">
+               <text dx="-30" dy="5" text-anchor="end" fill="black">LncBook</text>
+               <text dx="-30" dy="40.1" text-anchor="end" fill="black">LNCipedia</text>
+               <text dx="-30" dy="75.2" text-anchor="end" fill="black">GENCODE</text>
+               <text dx="-30" dy="110.30000000000001" text-anchor="end" fill="black">NONCODE</text>
+               <text dx="-30" dy="145.4" text-anchor="end" fill="black">FANTOM_CAT</text>
+               <circle cx="0" cy="0" r="13" class="set-A" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="0" cy="35.1" r="13" class="set-A" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="0" cy="70.2" r="13" class="set-A" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="0" cy="105.30000000000001" r="13" class="set-A" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="0" cy="140.4" r="13" class="set-A" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline0" x1="0" y1="0" x2="0" y2="0" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="35.1" cy="0" r="13" class="set-BD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="35.1" cy="35.1" r="13" class="set-BD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="35.1" cy="70.2" r="13" class="set-BD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="35.1" cy="105.30000000000001" r="13" class="set-BD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="35.1" cy="140.4" r="13" class="set-BD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline1" x1="35.1" y1="35.1" x2="35.1" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="70.2" cy="0" r="13" class="set-AB" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="70.2" cy="35.1" r="13" class="set-AB" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="70.2" cy="70.2" r="13" class="set-AB" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="70.2" cy="105.30000000000001" r="13" class="set-AB" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="70.2" cy="140.4" r="13" class="set-AB" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline2" x1="70.2" y1="0" x2="70.2" y2="35.1" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="105.30000000000001" cy="0" r="13" class="set-AD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="105.30000000000001" cy="35.1" r="13" class="set-AD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="105.30000000000001" cy="70.2" r="13" class="set-AD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="105.30000000000001" cy="105.30000000000001" r="13" class="set-AD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="105.30000000000001" cy="140.4" r="13" class="set-AD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline3" x1="105.30000000000001" y1="0" x2="105.30000000000001" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="140.4" cy="0" r="13" class="set-B" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="140.4" cy="35.1" r="13" class="set-B" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="140.4" cy="70.2" r="13" class="set-B" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="140.4" cy="105.30000000000001" r="13" class="set-B" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="140.4" cy="140.4" r="13" class="set-B" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline4" x1="140.4" y1="35.1" x2="140.4" y2="35.1" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="175.5" cy="0" r="13" class="set-ABD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="175.5" cy="35.1" r="13" class="set-ABD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="175.5" cy="70.2" r="13" class="set-ABD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="175.5" cy="105.30000000000001" r="13" class="set-ABD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="175.5" cy="140.4" r="13" class="set-ABD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline5" x1="175.5" y1="0" x2="175.5" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="210.60000000000002" cy="0" r="13" class="set-BC" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="210.60000000000002" cy="35.1" r="13" class="set-BC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="210.60000000000002" cy="70.2" r="13" class="set-BC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="210.60000000000002" cy="105.30000000000001" r="13" class="set-BC" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="210.60000000000002" cy="140.4" r="13" class="set-BC" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline6" x1="210.60000000000002" y1="35.1" x2="210.60000000000002" y2="70.2" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="245.70000000000002" cy="0" r="13" class="set-CD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="245.70000000000002" cy="35.1" r="13" class="set-CD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="245.70000000000002" cy="70.2" r="13" class="set-CD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="245.70000000000002" cy="105.30000000000001" r="13" class="set-CD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="245.70000000000002" cy="140.4" r="13" class="set-CD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline7" x1="245.70000000000002" y1="70.2" x2="245.70000000000002" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="280.8" cy="0" r="13" class="set-E" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="280.8" cy="35.1" r="13" class="set-E" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="280.8" cy="70.2" r="13" class="set-E" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="280.8" cy="105.30000000000001" r="13" class="set-E" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="280.8" cy="140.4" r="13" class="set-E" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline8" x1="280.8" y1="140.4" x2="280.8" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="315.90000000000003" cy="0" r="13" class="set-BCD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="315.90000000000003" cy="35.1" r="13" class="set-BCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="315.90000000000003" cy="70.2" r="13" class="set-BCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="315.90000000000003" cy="105.30000000000001" r="13" class="set-BCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="315.90000000000003" cy="140.4" r="13" class="set-BCD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline9" x1="315.90000000000003" y1="35.1" x2="315.90000000000003" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="351" cy="0" r="13" class="set-AC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="351" cy="35.1" r="13" class="set-AC" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="351" cy="70.2" r="13" class="set-AC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="351" cy="105.30000000000001" r="13" class="set-AC" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="351" cy="140.4" r="13" class="set-AC" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline10" x1="351" y1="0" x2="351" y2="70.2" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="386.1" cy="0" r="13" class="set-ABC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="386.1" cy="35.1" r="13" class="set-ABC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="386.1" cy="70.2" r="13" class="set-ABC" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="386.1" cy="105.30000000000001" r="13" class="set-ABC" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="386.1" cy="140.4" r="13" class="set-ABC" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline11" x1="386.1" y1="0" x2="386.1" y2="70.2" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="421.20000000000005" cy="0" r="13" class="set-ACD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="421.20000000000005" cy="35.1" r="13" class="set-ACD" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="421.20000000000005" cy="70.2" r="13" class="set-ACD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="421.20000000000005" cy="105.30000000000001" r="13" class="set-ACD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="421.20000000000005" cy="140.4" r="13" class="set-ACD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline12" x1="421.20000000000005" y1="0" x2="421.20000000000005" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="456.3" cy="0" r="13" class="set-ABCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="456.3" cy="35.1" r="13" class="set-ABCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="456.3" cy="70.2" r="13" class="set-ABCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="456.3" cy="105.30000000000001" r="13" class="set-ABCD" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="456.3" cy="140.4" r="13" class="set-ABCD" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline13" x1="456.3" y1="0" x2="456.3" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="491.40000000000003" cy="0" r="13" class="set-D" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="491.40000000000003" cy="35.1" r="13" class="set-D" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="491.40000000000003" cy="70.2" r="13" class="set-D" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="491.40000000000003" cy="105.30000000000001" r="13" class="set-D" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="491.40000000000003" cy="140.4" r="13" class="set-D" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline14" x1="491.40000000000003" y1="105.30000000000001" x2="491.40000000000003" y2="105.30000000000001" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="526.5" cy="0" r="13" class="set-C" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="526.5" cy="35.1" r="13" class="set-C" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="526.5" cy="70.2" r="13" class="set-C" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="526.5" cy="105.30000000000001" r="13" class="set-C" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="526.5" cy="140.4" r="13" class="set-C" style="opacity: 1;" fill="silver"></circle>
+               <line id="setline15" x1="526.5" y1="70.2" x2="526.5" y2="70.2" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="561.6" cy="0" r="13" class="set-BE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="561.6" cy="35.1" r="13" class="set-BE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="561.6" cy="70.2" r="13" class="set-BE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="561.6" cy="105.30000000000001" r="13" class="set-BE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="561.6" cy="140.4" r="13" class="set-BE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline16" x1="561.6" y1="35.1" x2="561.6" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="596.7" cy="0" r="13" class="set-AE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="596.7" cy="35.1" r="13" class="set-AE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="596.7" cy="70.2" r="13" class="set-AE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="596.7" cy="105.30000000000001" r="13" class="set-AE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="596.7" cy="140.4" r="13" class="set-AE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline17" x1="596.7" y1="0" x2="596.7" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="631.8000000000001" cy="0" r="13" class="set-ABE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="631.8000000000001" cy="35.1" r="13" class="set-ABE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="631.8000000000001" cy="70.2" r="13" class="set-ABE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="631.8000000000001" cy="105.30000000000001" r="13" class="set-ABE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="631.8000000000001" cy="140.4" r="13" class="set-ABE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline18" x1="631.8000000000001" y1="0" x2="631.8000000000001" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="666.9" cy="0" r="13" class="set-DE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="666.9" cy="35.1" r="13" class="set-DE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="666.9" cy="70.2" r="13" class="set-DE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="666.9" cy="105.30000000000001" r="13" class="set-DE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="666.9" cy="140.4" r="13" class="set-DE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline19" x1="666.9" y1="105.30000000000001" x2="666.9" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="702" cy="0" r="13" class="set-BDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="702" cy="35.1" r="13" class="set-BDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="702" cy="70.2" r="13" class="set-BDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="702" cy="105.30000000000001" r="13" class="set-BDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="702" cy="140.4" r="13" class="set-BDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline20" x1="702" y1="35.1" x2="702" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="737.1" cy="0" r="13" class="set-CE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="737.1" cy="35.1" r="13" class="set-CE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="737.1" cy="70.2" r="13" class="set-CE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="737.1" cy="105.30000000000001" r="13" class="set-CE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="737.1" cy="140.4" r="13" class="set-CE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline21" x1="737.1" y1="70.2" x2="737.1" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="772.2" cy="0" r="13" class="set-BCE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="772.2" cy="35.1" r="13" class="set-BCE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="772.2" cy="70.2" r="13" class="set-BCE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="772.2" cy="105.30000000000001" r="13" class="set-BCE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="772.2" cy="140.4" r="13" class="set-BCE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline22" x1="772.2" y1="35.1" x2="772.2" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="807.3000000000001" cy="0" r="13" class="set-ADE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="807.3000000000001" cy="35.1" r="13" class="set-ADE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="807.3000000000001" cy="70.2" r="13" class="set-ADE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="807.3000000000001" cy="105.30000000000001" r="13" class="set-ADE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="807.3000000000001" cy="140.4" r="13" class="set-ADE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline23" x1="807.3000000000001" y1="0" x2="807.3000000000001" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="842.4000000000001" cy="0" r="13" class="set-ABDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="842.4000000000001" cy="35.1" r="13" class="set-ABDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="842.4000000000001" cy="70.2" r="13" class="set-ABDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="842.4000000000001" cy="105.30000000000001" r="13" class="set-ABDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="842.4000000000001" cy="140.4" r="13" class="set-ABDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline24" x1="842.4000000000001" y1="0" x2="842.4000000000001" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="877.5" cy="0" r="13" class="set-CDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="877.5" cy="35.1" r="13" class="set-CDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="877.5" cy="70.2" r="13" class="set-CDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="877.5" cy="105.30000000000001" r="13" class="set-CDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="877.5" cy="140.4" r="13" class="set-CDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline25" x1="877.5" y1="70.2" x2="877.5" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="912.6" cy="0" r="13" class="set-BCDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="912.6" cy="35.1" r="13" class="set-BCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="912.6" cy="70.2" r="13" class="set-BCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="912.6" cy="105.30000000000001" r="13" class="set-BCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="912.6" cy="140.4" r="13" class="set-BCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline26" x1="912.6" y1="35.1" x2="912.6" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="947.7" cy="0" r="13" class="set-ACE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="947.7" cy="35.1" r="13" class="set-ACE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="947.7" cy="70.2" r="13" class="set-ACE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="947.7" cy="105.30000000000001" r="13" class="set-ACE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="947.7" cy="140.4" r="13" class="set-ACE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline27" x1="947.7" y1="0" x2="947.7" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="982.8000000000001" cy="0" r="13" class="set-ABCE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="982.8000000000001" cy="35.1" r="13" class="set-ABCE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="982.8000000000001" cy="70.2" r="13" class="set-ABCE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="982.8000000000001" cy="105.30000000000001" r="13" class="set-ABCE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="982.8000000000001" cy="140.4" r="13" class="set-ABCE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline28" x1="982.8000000000001" y1="0" x2="982.8000000000001" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="1017.9000000000001" cy="0" r="13" class="set-ACDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1017.9000000000001" cy="35.1" r="13" class="set-ACDE" style="opacity: 1;" fill="silver"></circle>
+               <circle cx="1017.9000000000001" cy="70.2" r="13" class="set-ACDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1017.9000000000001" cy="105.30000000000001" r="13" class="set-ACDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1017.9000000000001" cy="140.4" r="13" class="set-ACDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline29" x1="1017.9000000000001" y1="0" x2="1017.9000000000001" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+               <circle cx="1053" cy="0" r="13" class="set-ABCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1053" cy="35.1" r="13" class="set-ABCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1053" cy="70.2" r="13" class="set-ABCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1053" cy="105.30000000000001" r="13" class="set-ABCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <circle cx="1053" cy="140.4" r="13" class="set-ABCDE" style="opacity: 1;" fill="#02577b"></circle>
+               <line id="setline30" x1="1053" y1="0" x2="1053" y2="140.4" style="stroke: rgb(2, 87, 123);" stroke-width="4"></line>
+            </g>
+            <g id="upsetBars">
+               <g class="x axis" transform="translate(0,400)" fill="none" stroke="black" stroke-width="1" font-size="10" font-family="sans-serif" text-anchor="middle">
+                  <path class="domain" stroke="currentColor" d="M0.5,6V0.5H1240.5V6"></path>
+               </g>
+               <g class="y axis" fill="none" stroke="black" stroke-width="1" font-size="10" font-family="sans-serif" text-anchor="end">
+                  <path class="domain" stroke="currentColor" d="M-5,400.5H0.5V0.5H-5"></path>
+                  <g class="tick" opacity="1" transform="translate(0,400.5)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">0</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,364.96497579176474)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">20,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,329.4299515835295)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">40,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,293.8949273752943)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">60,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,258.35990316705903)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">80,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,222.82487895882383)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">100,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,187.28985475058855)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">120,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,151.7548305423533)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">140,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,116.21980633411805)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">160,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,80.6847821258828)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">180,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,45.149757917647605)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">200,000</text>
+                  </g>
+                  <g class="tick" opacity="1" transform="translate(0,9.61473370941236)">
+                     <line stroke="currentColor" x2="-5"></line>
+                     <text fill="black" x="-8" dy="0.32em" stroke="none">220,000</text>
+                  </g>
+               </g>
+               <g transform="translate(1,0)" id="chart">
+                   <rect class="bar" width="20" x="9" y="0" style="fill: rgb(2, 87, 123);" height="400"><title>225130 LncBook</rect>
+                   <rect class="bar" width="20" x="44.1" y="288.4146937325101" style="fill: rgb(2, 87, 123);" height="111.5853062674899"><title>62803 LNCipedia+NONCODE</rect>
+                   <rect class="bar" width="20" x="79.2" y="306.4647092790832" style="fill: rgb(2, 87, 123);" height="93.5352907209168"><title>52644 LncBook+LNCipedia</rect>
+                   <rect class="bar" width="20" x="114.30000000000001" y="321.80517922977833" style="fill: rgb(2, 87, 123);" height="78.19482077022167"><title>44010 LncBook+NONCODE</rect>
+                   <rect class="bar" width="20" x="149.4" y="329.31372984497847" style="fill: rgb(2, 87, 123);" height="70.68627015502153"><title>39784 LNCipedia</rect>
+                   <rect class="bar" width="20" x="184.5" y="343.629014347266" style="fill: rgb(2, 87, 123);" height="56.37098565273402"><title>31727 LncBook+LNCipedia+NONCODE</rect>
+                   <rect class="bar" width="20" x="219.60000000000002" y="358.8557722204948" style="fill: rgb(2, 87, 123);" height="41.14422777950517"><title>23157 LNCipedia+GENCODE</rect>
+                   <rect class="bar" width="20" x="254.70000000000002" y="368.6403411362324" style="fill: rgb(2, 87, 123);" height="31.359658863767606"><title>17650 GENCODE+NONCODE</rect>
+                   <rect class="bar" width="20" x="289.8" y="369.48252120996756" style="fill: rgb(2, 87, 123);" height="30.517478790032442"><title>17176 FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="324.90000000000003" y="371.2237373961711" style="fill: rgb(2, 87, 123);" height="28.77626260382891"><title>16196 LNCipedia+GENCODE+NONCODE</rect>
+                   <rect class="bar" width="20" x="360" y="375.9516723670768" style="fill: rgb(2, 87, 123);" height="24.04832763292319"><title>13535 LncBook+GENCODE</rect>
+                   <rect class="bar" width="20" x="395.1" y="378.0660063074668" style="fill: rgb(2, 87, 123);" height="21.933993692533193"><title>12345 LncBook+LNCipedia+GENCODE</rect>
+                   <rect class="bar" width="20" x="430.20000000000005" y="380.18389375027766" style="fill: rgb(2, 87, 123);" height="19.81610624972234"><title>11153 LncBook+GENCODE+NONCODE</rect>
+                   <rect class="bar" width="20" x="465.3" y="381.9144494292187" style="fill: rgb(2, 87, 123);" height="18.085550570781322"><title>10179 LncBook+LNCipedia+GENCODE+NONCODE</rect>
+                   <rect class="bar" width="20" x="500.40000000000003" y="384.5529249766801" style="fill: rgb(2, 87, 123);" height="15.447075023319883"><title>8694 NONCODE</rect>
+                   <rect class="bar" width="20" x="535.5" y="388.60569448762936" style="fill: rgb(2, 87, 123);" height="11.394305512370636"><title>6413 GENCODE</rect>
+                   <rect class="bar" width="20" x="570.6" y="398.82912095233866" style="fill: rgb(2, 87, 123);" height="1.1708790476613444"><title>659 LNCipedia+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="605.7" y="399.2733087549416" style="fill: rgb(2, 87, 123);" height="0.7266912450584186"><title>409 LncBook+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="640.8000000000001" y="399.56647270465953" style="fill: rgb(2, 87, 123);" height="0.4335272953404683"><title>244 LncBook+LNCipedia+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="675.9" y="399.7956736108026" style="fill: rgb(2, 87, 123);" height="0.20432638919737656"><title>115 NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="711" y="399.8241016301692" style="fill: rgb(2, 87, 123);" height="0.1758983698308043"><title>99 LNCipedia+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="746.1" y="399.84542264469417" style="fill: rgb(2, 87, 123);" height="0.1545773553058325"><title>87 GENCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="781.2" y="399.8543064007462" style="fill: rgb(2, 87, 123);" height="0.14569359925377512"><title>82 LNCipedia+GENCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="816.3000000000001" y="399.87029716163994" style="fill: rgb(2, 87, 123);" height="0.12970283836006047"><title>73 LncBook+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="851.4000000000001" y="399.88628792253365" style="fill: rgb(2, 87, 123);" height="0.11371207746634582"><title>64 LncBook+LNCipedia+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="886.5" y="399.88628792253365" style="fill: rgb(2, 87, 123);" height="0.11371207746634582"><title>64 GENCODE+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="921.6" y="399.88984142495445" style="fill: rgb(2, 87, 123);" height="0.1101585750455456"><title>62 LNCipedia+GENCODE+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="956.7" y="399.9111624394794" style="fill: rgb(2, 87, 123);" height="0.08883756052057379"><title>50 LncBook+GENCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="991.8000000000001" y="399.9129391906898" style="fill: rgb(2, 87, 123);" height="0.08706080931017368"><title>49 LncBook+LNCipedia+GENCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="1026.9" y="399.9271532003731" style="fill: rgb(2, 87, 123);" height="0.07284679962691598"><title>41 LncBook+GENCODE+NONCODE+FANTOM_CAT</rect>
+                   <rect class="bar" width="20" x="1062" y="399.92892995158354" style="fill: rgb(2, 87, 123);" height="0.07107004841645903"><title>40 LncBook+LNCipedia+GENCODE+NONCODE+FANTOM_CAT</rect>
+               </g>
+            </g>
+         </g>
+      </svg>
+      <div style="position: absolute; z-index: 10; visibility: hidden; color: white; padding: 0px 10px; background: rgb(2, 87, 123) none repeat scroll 0% 0%; border-radius: 12px; top: 179px; left: 206px;">LncBook: 225130 values</div>
+    </div>
+    <script type="text/javascript">
+        var bars = document.querySelectorAll(".bar");
+        bars.forEach(function(bar) {
+            bar.onclick = function (e) {
+                var link = document.createElement("a");
+                link.download = 'base.html';
+                link.href = '../otherstatic/gff3/' + e.srcElement.innerHTML.match('<title>(.*)<\/title>')[1].split(' ')[1] + '.txt';
+                link.click();
+            };
+        });
+    </script>
+{% endblock content %}

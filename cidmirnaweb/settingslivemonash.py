@@ -38,3 +38,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'cidmirna.sqlite')
     }
 }
+
+# Linc2Function 
+LINC2FUNCTION_ROOT = '/home/cidmirna/linc2functionpipeline/identification'
+
+# SPOT-RNA 
+SPOTRNA_ROOT = '/home/cidmirna/SPOT-RNA'
+

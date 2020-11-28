@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static%}
+
+{% block title %}Linc2Function{% endblock %}
+{% block content %}
+
+<div class="main">
+    <h1>Linc2Function</h1>
+    <h3>Linc2Function: A pipeline to identify and assign function to long noncoding RNA (lncRNA)</h3>
+
+<hr>
+
+<div class="panel panel-default" style="margin-top:20px">
+    <div class="panel-heading">
+        <h3 class="panel-title">Coding Potential</h3>
+    </div>
+    {% if model == 'hs' %}
+    <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific</span> model</h4>
+    {% else %}
+    <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic</span> model</h4>
+    {% endif %}
+        <div class="progress" data-toggle="tooltip" title="Coding Potential Percentage for the Given Sequence">
+        <div 
+            class="progress-bar progress-bar-striped bg-info" 
+            role="progressbar" 
+            style="width: {{percentage}}%" 
+            aria-valuenow="{{percentage}}" 
+            aria-valuemin="0" 
+            aria-valuemax="100">
+            {{ percentage}}%
+        </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Secondary Structure - Arc Diagram</h3>
+    </div>
+    <div class="panel-body">
+        <img alt="Arc Diagram" src="{% static arc_diagram_path %}", width="100%">
+    </div>
+</div>
+
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Secondary Structure - 2D Diagram</h3>
+    </div>
+    <div class="panel-body">
+        <img alt="2D Diagram" src="{% static twod_diagram_path %}", width="100%">
+    </div>
+</div>
+
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">RBP Interactome</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    {% for header in headers %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Sequence</h3>
+    </div>
+    <p name="sequence_p" class="text-wrap" style="width: 100%;">{{sequence|join:' '}}</p>
+</div>
+
+<hr>
+
+<div class="footer">
+    <a 
+    class="badge badge-light" 
+    href="https://tsonika-lab.erc.monash.edu/linc2function"
+    style="text-align:left">
+        Scan Another Sequence
+    </a>
+</div>
+
+<hr>
+
+<p>Source code to Linc2Function is available from <a href="https://gitlab.com/tyagilab/linc2functionpipeline/">https://gitlab.com/tyagilab/linc2functionpipeline/</a></p>. 
+    <p>If you use these results in a published paper, please cite the following article</p>
+    <blockquote style="font-size: 14px; text-align: left;">
+        <p>Yashpal Ramakrishnaiah, Levin Kuhlmann, Sonika Tyagi, <a href="http://www.sciencedirect.com/science/article/pii/S0010482520303590">Towards a comprehensive pipeline to identify and functionally annotate long noncoding RNA (lncRNA)</a>,</p>
+        <p>Computers in Biology and Medicine, Volume 127, 2020, 104028, ISSN 0010-4825, https://doi.org/10.1016/j.compbiomed.2020.104028.</p>
+    </blockquote>
+</p>
+
+<hr>
+
+<script>
+
+    window.onload = function () {
+        sequence_p = document.getElementsByName('sequence_p')[0]
+        sequence_p.innerHTML = sequence_p.innerHTML.replace(/[A]/g, '<span class="text-warning">A</span>')
+        sequence_p.innerHTML = sequence_p.innerHTML.replace(/[C]/g, '<span class="text-success">C</span>')
+        sequence_p.innerHTML = sequence_p.innerHTML.replace(/[G]/g, '<span class="text-danger">G</span>')
+        sequence_p.innerHTML = sequence_p.innerHTML.replace(/[T]/g, '<span class="text-info">T</span>')
+        sequence_p.innerHTML = sequence_p.innerHTML.replace(/[U]/g, '<span class="text-primary">U</span>')
+    };
+
+</script>
+
+{% endblock content %}
+

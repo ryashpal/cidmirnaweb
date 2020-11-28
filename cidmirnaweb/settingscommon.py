@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'froala_editor',
     'analyses',
-    'bioinformatics'
+    'bioinformatics',
+    'linc2function',
 ]
 
 MIDDLEWARE = [

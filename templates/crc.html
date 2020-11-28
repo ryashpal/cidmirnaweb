@@ -1,0 +1,21 @@
+{% extends "base12.html" %}
+
+{% block content %}
+{% load static %}
+
+<h1>Deep-EMSCAN</h1>
+<h3>
+  A Deep Learning Approach to Recover Biologically Significant Motifs
+  </h3>
+  <br>
+<p style = 'font-size: 18px'>
+  DNA motifs are short (5-20 bp) recurring patterns that represent binding sites for regulatory proteins such as Transcription Factors (TF) or RNA binding proteins (RBP).
+  These motifs along with the genes make up the gene regulation machinery in a living organism. Searching for these small patterns in large genomic data (up to billion bp) is very challenging. Further, these motifs may work in collaboration with one or more other motifs, and it is a computationally expensive task to find various permutations with a biological function.
+  <br><br>
+We built an Artificial Neural Network (ANN) model to predict the co-occurrence of motifs from given instances of a TF binding motif. The data consisted of labelled co-occurring and non-co-occurring motif pairs bound by TF in the gene promoter region. Then we grouped co- located motif instances into clusters, also known as Co-Regulatory Clusters (CRCs). Multiple features based on DNA shape, DNA composition, and protein-protein interaction (PPI) were calculated to study the biophysical characteristics of co-occurring motifs. Extensive feature engineering was performed to rank and select features and to train the ANN model. The motifs involved in binding, DNA shapes such as OC2, EP, Opening and Stagger, and DNA binding domains and PPI score of TFs occupying these motifs were found to be the most distinguishing features.
+<br><br>
+We have applied this model to locate collaborative TF binding sites in the data generated through ChIP-Seq experiments with 83% accuracy. We curated the UniBind database containing ChIP-Seq data from over 1983 samples and 231 TFs. We predicted 2207 potential motif pairs arranged in 482 CRCs.
+These predicted CRCs are output with a query on the other tabs. Future work would involve the extension of the same workflow to RBP sites on RNA molecules.
+  </p>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Co-Regulatory Clusters</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style media="screen">
+      li{
+        font-size: 25px;
+        font-weight: bold;
+      }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid" style="margin-left:33%">
+    <!-- <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div> -->
+    <ul class="nav navbar-nav">
+      <li><a href="{% url 'crc_finder' %}">CRC Finder</a></li>
+      <li><a href="{% url 'novel_crcs' %}">Novel CRCs</a></li>
+      <li><a href="{% url 'home' %}">Help</a></li>
+
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  {% block content %}
+
+  {% endblock %}
+</div>
+
+</body>
+</html>
+

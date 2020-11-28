@@ -41,3 +41,9 @@ DATABASES = {
     }
 }
 
+# Linc2Function 
+LINC2FUNCTION_ROOT = '/home/monash/minor_thesis/workspace/linc2functionpipeline/identification'
+
+# SPOT-RNA 
+SPOTRNA_ROOT = '/home/monash/minor_thesis/workspace/SPOT-RNA'
+

@@ -18,27 +18,33 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from bioinformatics import views 
+from bioinformatics import views
 from analyses import views as analysesviews
 from cidmirnaweb import views as cidmirnawebviews
+from linc2function import views as linc2functionviews
+from crc_finder import views as crcfinderviews
 
 urlpatterns = [
     url(r'^theadmin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^cidmirna$', analysesviews.cidmirna, name='cidmirna'),
     url(r'^datasource_comparison$', cidmirnawebviews.datasource_comparison, name='datasource_comparison'),
+    url(r'^linc2function$', linc2functionviews.linc2function, name='linc2function'),
+    url(r'^crc_finder$', crcfinderviews.get_crc, name='crc_finder'),
+    url(r'^crc$', crcfinderviews.home, name='home'),
+    url(r'^novel_crcs$', crcfinderviews.get_novel_crc, name='novel_crcs'),
+    url(r'^download$', cidmirnawebviews.download, name='download'),
     url(r'^about$', cidmirnawebviews.about, name='about'),
     url(r'^submitted$', analysesviews.analysis_submitted, name='success'),
 
     url(r'^people$', views.people, name='people'),
     url(r'^research$', views.research, name='research'),
     url(r'^publications$', views.publications, name='publications'),
-    url(r'^training$', views.training, name='training'),
+    url(r'^teaching$', views.teaching, name='teaching'),
     url(r'^news$', views.news, name='news'),
     url(r'^froala_editor/', include('froala_editor.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
 
 
 if settings.DEBUG:
@@ -46,4 +52,3 @@ if settings.DEBUG:
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-

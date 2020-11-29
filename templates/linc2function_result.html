@@ -13,9 +13,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Transcript Name</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">Transcript Name</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#transctipt_id_pnl"></span>
+        </h3>
     </div>
-    <div class="panel-body" style="word-break: break-all">
+    <div id="transctipt_id_pnl" class="panel-body collapse in" style="word-break: break-all">
         <p>{{transcript_id}}</p>
     </div>
 </div>
@@ -24,14 +27,17 @@
 
 <div class="panel panel-default" style="margin-top:20px">
     <div class="panel-heading">
-        <h3 class="panel-title">Coding Potential</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">Coding Potential</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#coding_potential_pnl"></span>
+        </h3>
     </div>
     {% if model == 'hs' %}
     <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific</span> model</h4>
     {% else %}
     <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic</span> model</h4>
     {% endif %}
-        <div class="progress" data-toggle="tooltip" title="Coding Potential Percentage for the Given Sequence">
+    <div id="coding_potential_pnl" class="progress collapse in" data-toggle="tooltip" title="Coding Potential Percentage for the Given Sequence">
         <div 
             class="progress-bar progress-bar-striped bg-info" 
             role="progressbar" 
@@ -48,9 +54,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Secondary Structure - Arc Diagram</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">Secondary Structure - Arc Diagram</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#arc_diagram_pnl"></span>
+        </h3>
     </div>
-    <div class="panel-body">
+    <div id="arc_diagram_pnl" class="panel-body collapse in">
         <img alt="Arc Diagram" src="{% static arc_diagram_path %}", width="100%">
     </div>
 </div>
@@ -59,9 +68,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Secondary Structure - 2D Diagram</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">Secondary Structure - 2D Diagram</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#twod_diagram_pnl"></span>
+        </h3>
     </div>
-    <div class="panel-body">
+    <div id="twod_diagram_pnl" class="panel-body collapse in">
         <img alt="2D Diagram" src="{% static twod_diagram_path %}", width="100%">
     </div>
 </div>
@@ -70,9 +82,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">RBP Interactome</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">RBP Interactome</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rbp_interactome_pnl"></span>
+        </h3>
     </div>
-    <div class="panel-body">
+    <div id="rbp_interactome_pnl" class="panel-body collapse in">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -98,9 +113,14 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Sequence</h3>
+        <h3 class="panel-title">
+            <span class="label label-default">Sequence</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#sequence_pnl"></span>
+        </h3>
     </div>
-    <p name="sequence_p" class="text-wrap" style="width: 100%;">{{sequence|join:' '}}</p>
+    <div id="sequence_pnl" class="panel-body collapse in">
+        <p name="sequence_p" class="text-wrap" style="width: 100%;">{{sequence|join:' '}}</p>
+    </div>
 </div>
 
 <hr>
@@ -126,6 +146,12 @@
 
 <hr>
 
+<script
+    src="https://code.jquery.com/jquery-3.5.1.slim.js"
+    integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
+    crossorigin="anonymous">
+</script>
+
 <script>
 
     window.onload = function () {
@@ -136,6 +162,12 @@
         sequence_p.innerHTML = sequence_p.innerHTML.replace(/[T]/g, '<span class="text-info">T</span>')
         sequence_p.innerHTML = sequence_p.innerHTML.replace(/[U]/g, '<span class="text-primary">U</span>')
     };
+
+    $(document).ready(function () {
+        $('span[name="toggle_pnl"]').click(function () {
+            $(this).toggleClass("glyphicon-menu-down").toggleClass("glyphicon-menu-up");
+        });
+    });
 
 </script>
 

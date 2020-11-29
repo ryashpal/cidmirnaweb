@@ -23,19 +23,19 @@ def linc2function(request):
             fastaFile.close()
 
             sequence = ''
-            fasta_id = 'N/A'
+            fasta_id = ''
             for record in SeqIO.parse(fastaFile.name, "fasta"):
                 if record:
                     sequence = str(record.seq)
                     fasta_id = record.id
                     break
 
-            if sequence:
+            if sequence and fasta_id:
                 model = request.POST['modelRadios']
                 percentage = calculateCodingPotential(sequence, model)
-                radiateImageName, lineImageName = predictSecondaryStructure(fastaFile)
-                arc_diagram_path = os.path.join('tmp/', radiateImageName.split('.')[0].split('_')[0], radiateImageName)
-                twod_diagram_path = os.path.join('tmp/', lineImageName.split('.')[0].split('_')[0], lineImageName)
+                uid, radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, fastaFile)
+                arc_diagram_path = os.path.join('tmp', uid, radiateImageName)
+                twod_diagram_path = os.path.join('tmp', uid, lineImageName)
                 headers, data = predictBindingSites(sequence)
                 args = {
                     'percentage': percentage, 

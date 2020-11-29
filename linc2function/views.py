@@ -1,5 +1,6 @@
 import os
 import random
+import logging
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -47,6 +48,7 @@ def linc2function(request):
                     'data': data, 
                     'transcript_id': fasta_id, 
                     }
+                logging.info('linc2function|' + model + '|' + fasta_id + '|' + sequence + '|' + uid + '|' + str(percentage))
                 os.unlink(fastaFile.name)
                 return render(request, 'linc2function_result.html', args)
             os.unlink(fastaFile.name)

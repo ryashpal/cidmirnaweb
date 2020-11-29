@@ -3,3 +3,4 @@ logs/*
 uploaded/*
 cidmirna.sqlite
 static/*
+.venv/*

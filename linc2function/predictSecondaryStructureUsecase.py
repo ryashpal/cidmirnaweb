@@ -4,17 +4,11 @@ import uuid
 from django.conf import settings
 import logging
 from subprocess import Popen
-from tempfile import NamedTemporaryFile
 
-def predict(sequence):
+def predict(fastaFile):
     uid = str(uuid.uuid4())
     venvPath = os.path.join(settings.SPOTRNA_ROOT, '.venv/bin/python')
     spotrnaPath = os.path.join(settings.SPOTRNA_ROOT, 'SPOT-RNA.py')
-    fastaFile = NamedTemporaryFile(delete=False, suffix='.fasta')
-    fastaFile.write(('>' + uid).encode())
-    fastaFile.write('\n'.encode())
-    fastaFile.write(sequence.encode())
-    fastaFile.close()
     inputPath = fastaFile.name
     outputPath = os.path.join(settings.BASE_DIR, 'static', 'tmp', uid)
     ctFilePath = os.path.join(outputPath, uid + '.ct')
@@ -28,6 +22,5 @@ def predict(sequence):
         subprocess.Popen(["java", "-cp", settings.SPOTRNA_ROOT + "/utils/VARNAv3-93.jar", "fr.orsay.lri.varna.applications.VARNAcmd", '-i', ctFilePath, '-o', lineImagePath, '-algorithm', 'line', '-resolution', '8.0', '-bpStyle', 'lw'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE, cwd=settings.SPOTRNA_ROOT).communicate()
     except Exception as e:
         logging.error(e)
-    os.unlink(fastaFile.name)
     return os.path.basename(radiateImagePath), os.path.basename(lineImagePath)
 

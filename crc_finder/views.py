@@ -5,10 +5,8 @@ import pandas as pd
 import json
 
 data_file = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
-data_df = pd.read_csv(data_file)
 
 data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
-data_df2 = pd.read_csv(data_file2)
 # print(data_df)
 
 def CRC_search(gene_names, all_motifs, data_df):
@@ -54,6 +52,7 @@ def get_crc(request):
             all_motifs = [motif.strip(' ') for motif in all_motifs]
             # print('Gene', gene_name)
             # print('Motifs', all_motifs)
+            data_df = pd.read_csv(data_file)
             result_df = CRC_search(all_gene_names, all_motifs, data_df)
             result_records = result_df[['gene_name', 'cluster_motifs']].reset_index(drop = True).to_json(orient = 'records')
 
@@ -89,6 +88,7 @@ def get_novel_crc(request):
             all_motifs = [motif.strip(' ') for motif in all_motifs]
             # print('Gene', gene_name)
             # print('Motifs', all_motifs)
+            data_df2 = pd.read_csv(data_file2)
             result_df = CRC_search(all_gene_names, all_motifs, data_df2)
             result_df = result_df.round({"CRC_score":2})
             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')

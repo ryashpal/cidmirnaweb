@@ -35,3 +35,7 @@ def datasource_comparison(request):
 
 def linc2function_data_selection(request):
     return render(request, 'linc2function_data_selection.html')
+
+
+def linc2function_feature_tree(request):
+    return render(request, 'linc2function_feature_tree.html')

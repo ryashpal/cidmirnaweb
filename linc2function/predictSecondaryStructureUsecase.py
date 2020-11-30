@@ -13,11 +13,11 @@ def predict(fasta_id, uid):
     radiateImagePath = os.path.join(outputPath, fasta_id + '_radiate.png')
     lineImagePath = os.path.join(outputPath, fasta_id + '_line.png')
     try:
-        if ctFilePath.is_file():
+        if not os.path.isfile(ctFilePath):
             p = subprocess.Popen([venvPath, spotrnaPath, '--inputs', inputPath, '--outputs', outputPath], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
-        if radiateImagePath.is_file():
+        if not os.path.isfile(radiateImagePath):
             subprocess.Popen(["java", "-cp", settings.SPOTRNA_ROOT + "/utils/VARNAv3-93.jar", "fr.orsay.lri.varna.applications.VARNAcmd", '-i', ctFilePath, '-o', radiateImagePath, '-algorithm', 'radiate', '-resolution', '8.0', '-bpStyle', 'lw'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE, cwd=settings.SPOTRNA_ROOT).communicate()
-        if lineImagePath.is_file():
+        if not os.path.isfile(lineImagePath):
             subprocess.Popen(["java", "-cp", settings.SPOTRNA_ROOT + "/utils/VARNAv3-93.jar", "fr.orsay.lri.varna.applications.VARNAcmd", '-i', ctFilePath, '-o', lineImagePath, '-algorithm', 'line', '-resolution', '8.0', '-bpStyle', 'lw'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE, cwd=settings.SPOTRNA_ROOT).communicate()
     except Exception as e:
         logging.error(e)

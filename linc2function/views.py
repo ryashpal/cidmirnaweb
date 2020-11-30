@@ -9,7 +9,6 @@ from .linc2functionUsecase import annotateFastaFile as annotateFastaFile
 import logging
 
 def linc2function(request):
-    logging.error('linc2function: beginning of the function')
     if request.method == 'POST':
         form = Linc2functionForm(request.POST)
         if form.is_valid():
@@ -20,8 +19,6 @@ def linc2function(request):
     elif request.method == 'GET':
         uid = request.GET.get('uid', '')
         model = request.GET.get('model', '')
-        logging.error('linc2function: ' + uid)
-        logging.error('linc2function: ' + model)
         if uid and model:
             args= annotateFastaFile(uid, model)
             return render(request, 'linc2function_result.html', args)

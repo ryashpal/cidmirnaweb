@@ -1,0 +1,188 @@
+<html><head>
+
+    <title>Audience Comparison</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="venn.js"></script>
+
+        <style>
+            body {
+                font-family: 'Quicksand', sans-serif;
+                font-weight: 700;
+                font-size : 14px;
+                margin: 2% 2% 2% 2%;
+}
+
+           .venntooltip {
+                font-size : 14px;
+                position: absolute;
+                text-align: center;
+                width: 128px;
+                height: 85px;
+                background: #333;
+                color: #fff;
+                padding: 2px;  
+                border: 0px;
+                border-radius: 8px;
+                opacity: 0;
+            }
+
+
+        </style>
+
+
+
+</head>
+
+<body>
+
+
+<div id="container">
+<h1>Data Selection</h1>
+
+<div id="venn_one" style="float:left">    
+<svg width="750" height="600"><g class="venn-area venn-circle" data-venn-sets="LncBook"><path style="fill-opacity: 0.8; fill: rgb(31, 119, 180); stroke-width: 3px; stroke-opacity: 1;" d="
+M 285.07880678151184 341.2770294279388 
+m -243.72297057206126 0 
+a 243.72297057206126 243.72297057206126 0 1 0 487.4459411441225 0 
+a 243.72297057206126 243.72297057206126 0 1 0 -487.4459411441225 0"></path><text class="label" text-anchor="middle" dy=".35em" x="187" y="377" style="fill: white;"><tspan x="187" y="377" dy="0.35em">LB</tspan></text></g><g class="venn-area venn-circle" data-venn-sets="NONCODE"><path style="fill-opacity: 0.8; fill: rgb(214, 39, 40); stroke-width: 3px; stroke-opacity: 1;" d="
+M 435.9410476790032 188.31636610061022 
+m -173.31636610061022 0 
+a 173.31636610061022 173.31636610061022 0 1 0 346.63273220122045 0 
+a 173.31636610061022 173.31636610061022 0 1 0 -346.63273220122045 0"></path><text class="label" text-anchor="middle" dy=".35em" x="429" y="74" style="fill: white;"><tspan x="429" y="74" dy="0.35em">NC</tspan></text></g><g class="venn-area venn-circle" data-venn-sets="GENCODE"><path style="fill-opacity: 0.8; fill: rgb(44, 160, 44); stroke-width: 3px; stroke-opacity: 1;" d="
+M 569.2692681333017 200.36316806967116 
+m -128.25303113396413 0 
+a 128.25303113396413 128.25303113396413 0 1 0 256.50606226792826 0 
+a 128.25303113396413 128.25303113396413 0 1 0 -256.50606226792826 0"></path><text class="label" text-anchor="middle" dy=".35em" x="643" y="149" style="fill: white;"><tspan x="643" y="149" dy="0.35em">GC</tspan></text></g><g class="venn-area venn-circle" data-venn-sets="LNCipedia"><path style="fill-opacity: 0.8; fill: rgb(255, 127, 14); stroke-width: 3px; stroke-opacity: 1;" d="
+M 516.5190871787945 341.27702942793877 
+m -192.12507661175493 0 
+a 192.12507661175493 192.12507661175493 0 1 0 384.25015322350987 0 
+a 192.12507661175493 192.12507661175493 0 1 0 -384.25015322350987 0"></path><text class="label" text-anchor="middle" dy=".35em" x="604" y="407" style="fill: white;"><tspan x="604" y="407" dy="0.35em">LP</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LNCipedia_NONCODE"><path style="fill-opacity: 0;" d="
+M 325.3846009413592 321.7923371331045 
+A 192.12507661175493 192.12507661175493 0 0 1 608.5457342168561 172.62608428381944 
+A 173.31636610061022 173.31636610061022 0 0 1 325.3846009413592 321.7923371331045"></path><text class="label" text-anchor="middle" dy=".35em" x="532" y="327" style="fill: white;"><tspan x="532" y="327" dy="0.35em">LP + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_LNCipedia"><path style="fill-opacity: 0;" d="
+M 449.3834917335417 161.2635385799358 
+A 243.72297057206126 243.72297057206126 0 0 1 449.3834917335418 521.2905202759417 
+A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.2635385799358"></path><text class="label" text-anchor="middle" dy=".35em" x="433" y="431" style="fill: white;"><tspan x="433" y="431" dy="0.35em">LB + LP</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_NONCODE"><path style="fill-opacity: 0;" d="
+M 288.27732194366195 97.57504772646124 
+A 243.72297057206126 243.72297057206126 0 0 1 528.713358560995 334.71261295118984 
+A 173.31636610061022 173.31636610061022 0 0 1 288.27732194366195 97.57504772646124"></path><text class="label" text-anchor="middle" dy=".35em" x="328" y="166" style="fill: white;"><tspan x="328" y="166" dy="0.35em">LB + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LNCipedia_GENCODE"><path style="fill-opacity: 0;" d="
+M 446.81220262819 162.24352611271738 
+A 192.12507661175493 192.12507661175493 0 0 1 686.6559780197227 252.0274723531007 
+A 128.25303113396413 128.25303113396413 0 0 1 446.81220262819 162.24352611271738"></path><text class="label" text-anchor="middle" dy=".35em" x="639" y="252" style="fill: white;"><tspan x="639" y="252" dy="0.35em">LP + GC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="GENCODE_NONCODE"><path style="fill-opacity: 0; stroke-width: 3px;" d="
+M 541.7068588308936 325.6195195593106 
+A 128.25303113396413 128.25303113396413 0 0 1 564.6049009414397 72.19498296217633 
+A 173.31636610061022 173.31636610061022 0 0 1 541.7068588308936 325.6195195593106"></path><text class="label" text-anchor="middle" dy=".35em" x="547" y="112" style="fill: white;"><tspan x="547" y="112" dy="0.35em">GC + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_GENCODE"><path style="fill-opacity: 0;" d="
+M 447.637931200964 159.6856820226979 
+A 243.72297057206126 243.72297057206126 0 0 1 528.0224921066393 321.80263225844266 
+A 128.25303113396413 128.25303113396413 0 0 1 447.637931200964 159.6856820226979"></path><text class="label" text-anchor="middle" dy=".35em" x="478" y="245" style="fill: white;"><tspan x="478" y="245" dy="0.35em">LB + GC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_LNCipedia_NONCODE"><path style="fill-opacity: 0;" d="
+M 325.3846009413592 321.7923371331045 
+A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.2635385799358 
+A 243.72297057206126 243.72297057206126 0 0 1 528.713358560995 334.71261295118984 
+A 173.31636610061022 173.31636610061022 0 0 1 325.3846009413592 321.7923371331045"></path><text class="label" text-anchor="middle" dy=".35em" x="399" y="290" style="fill: white;"><tspan x="399" y="290" dy="0.35em">LB + LP + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LNCipedia_GENCODE_NONCODE"><path style="fill-opacity: 0; stroke-width: 3px;" d="
+M 446.81220262819 162.24352611271738 
+A 192.12507661175493 192.12507661175493 0 0 1 608.5457342168561 172.62608428381944 
+A 173.31636610061022 173.31636610061022 0 0 1 541.7068588308936 325.6195195593106 
+A 128.25303113396413 128.25303113396413 0 0 1 446.81220262819 162.24352611271738"></path><text class="label" text-anchor="middle" dy=".35em" x="552" y="208" style="fill: white;"><tspan x="552" y="208" dy="0.35em">LP + GC + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_LNCipedia_GENCODE"><path style="fill-opacity: 0;" d="
+M 449.3834917335417 161.2635385799358 
+A 243.72297057206126 243.72297057206126 0 0 1 528.0224921066393 321.80263225844266 
+A 128.25303113396413 128.25303113396413 0 0 1 446.81220262819 162.24352611271738 
+A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.2635385799358"></path><text class="label" text-anchor="middle" dy=".35em" x="478" y="245" style="fill: white;"><tspan x="478" dy="0.35em" y="235">LB + LP + GC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_GENCODE_NONCODE"><path style="fill-opacity: 0;" d="
+M 447.637931200964 159.6856820226979 
+A 243.72297057206126 243.72297057206126 0 0 1 528.0224921066393 321.80263225844266 
+A 128.25303113396413 128.25303113396413 0 0 1 447.637931200964 159.6856820226979"></path><text class="label" text-anchor="middle" dy=".35em" x="447" y="160" style="fill: white;"><tspan x="447" y="160" dy="0.35em">LB + GC + NC</tspan></text></g><g class="venn-area venn-intersection" data-venn-sets="LncBook_LNCipedia_GENCODE_NONCODE"><path style="fill-opacity: 0; stroke-width: 3px;" d="
+M 449.3834917335417 161.2635385799358 
+A 243.72297057206126 243.72297057206126 0 0 1 528.0224921066393 321.80263225844266 
+A 128.25303113396413 128.25303113396413 0 0 1 446.81220262819 162.24352611271738 
+A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.2635385799358"></path><text class="label" text-anchor="middle" dy=".35em" x="478" y="245" style="fill: white;"><tspan x="478" dy="0.35em" y="255">LB + LP + GC + NC</tspan></text></g></svg><div class="venntooltip" style="left: 703px; top: 413px; opacity: 0;">43.325096448% of Audience One saw LP</div></div> 
+
+
+
+
+<script>
+    var sets = [
+        {sets:["LncBook"], figure: 39.12446561, label: "LB", size: (39.12446561 + 9.148795662 + 2.352194918 + 7.64832644 + 5.513711724 + 2.145389455 + 1.938236419 + 1.85)}, 
+        {sets:["LNCipedia"], figure: 6.913906364, label: "LP", size: (6.913906364 + 9.148795662 + 4.024364812 + 10.91428869 + 5.513711724 + 2.814639741 + 2.145389455 + 1.85)}, 
+        {sets:["GENCODE"], figure: 1.114490285, label: "GC", size: (1.114490285 + 2.352194918 + 4.024364812 + 3.067324737 + 2.814639741 + 2.145389455 + 1.938236419 + 1.85)}, 
+        {sets:["NONCODE"], figure: 1.510896389, label: "NC", size: (1.510896389 + 7.64832644 + 10.91428869 + 3.067324737 + 5.513711724 + 2.814639741 + 1.938236419 + 1.85)}, 
+        {sets:["LncBook", "LNCipedia"], figure: 9.148795662, label: "LB + LP", size: (9.148795662 + 1.85 + 5.513711724 + 2.145389455)}, 
+        {sets:["LncBook", "GENCODE"], figure: 2.352194918, label: "LB + GC", size: (2.352194918 + 1.85 + 2.145389455 + 1.938236419)}, 
+        {sets:["LncBook", "NONCODE"], figure: 7.64832644, label: "LB + NC", size: (7.64832644 + 1.85 + 5.513711724 + 1.938236419)}, 
+        {sets:["LNCipedia", "GENCODE"], figure: 4.024364812, label: "LP + GC", size: (4.024364812 + 1.85 + 2.814639741 + 2.145389455)}, 
+        {sets:["LNCipedia", "NONCODE"], figure: 10.91428869, label: "LP + NC", size: (10.91428869 + 1.85 + 5.513711724 + 2.814639741)}, 
+        {sets:["GENCODE", "NONCODE"], figure: 3.067324737, label: "GC + NC", size: (3.067324737 + 1.85 + 2.814639741 + 1.938236419)}, 
+        {sets:["LncBook", "LNCipedia", "NONCODE"], figure: 5.513711724, label: "LB + LP + NC", size: (5.513711724 + 1.85)}, 
+        {sets:["LNCipedia", "GENCODE", "NONCODE"], figure: 2.814639741, label: "LP + GC + NC", size: (2.814639741 + 1.85)}, 
+        {sets:["LncBook", "LNCipedia", "GENCODE"], figure: 2.145389455, label: "LB + LP + GC", size: (2.145389455 + 1.85)}, 
+        {sets:["LncBook", "GENCODE", "NONCODE"], figure: 1.938236419, label: "LB + GC + NC", size: (1.938236419 + 1.85)}, 
+        {sets:["LncBook", "LNCipedia", "GENCODE", "NONCODE"], figure: 1.85, label: "LB + LP + GC + NC", size: 1.85}, 
+                ];
+
+
+    var chart = venn.VennDiagram()
+        .width(750)
+        .height(600)
+
+      
+
+    var div = d3.select("#venn_one").datum(sets).call(chart);
+        div.selectAll("text").style("fill", "white");
+        div.selectAll(".venn-circle path")
+                .style("fill-opacity", .8)
+                .style("stroke-width", 1)
+                .style("stroke-opacity", 1)
+                .style("stroke", "fff");
+
+
+
+    var tooltip = d3.select("#venn_one").append("div")
+        .attr("class", "venntooltip");
+
+
+    div.selectAll("g")
+        .on("mouseover", function(d, i) {
+            // sort all the areas relative to the current item
+            venn.sortAreas(div, d);
+
+            // Display a tooltip with the current size
+            tooltip.transition().duration(40).style("opacity", 1);
+            tooltip.text(d.size + "% of Audience One saw " + d.label);
+
+            // highlight the current path
+            // highlight the current path
+            var selection = d3.select(this).transition("tooltip").duration(400);
+            selection.select("path")
+                .style("stroke-width", 3)
+                .style("fill-opacity", d.sets.length == 1 ? .8 : 0)
+                .style("stroke-opacity", 1);
+        })
+
+        .on("mousemove", function() {
+            tooltip.style("left", (d3.event.pageX) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+        })
+
+        .on("mouseout", function(d, i) {
+            tooltip.transition().duration(2000).style("opacity", 0);
+            var selection = d3.select(this).transition("tooltip").duration(400);
+            selection.select("path")
+                .style("stroke-width", 3)
+                .style("fill-opacity", d.sets.length == 1 ? .8 : 0)
+                .style("stroke-opacity", 1);
+        });
+
+</script>
+
+</div> 
+
+
+
+
+
+</body></html>

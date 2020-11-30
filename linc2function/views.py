@@ -28,3 +28,10 @@ def linc2function(request):
     form = Linc2functionForm()
     return render(request, 'linc2function.html', {'form': form})
 
+
+def datasource_comparison(request):
+    return render(request, 'compare.html')
+
+
+def linc2function_data_selection(request):
+    return render(request, 'linc2function_data_selection.html')

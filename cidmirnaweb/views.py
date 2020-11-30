@@ -5,10 +5,6 @@ def about(request):
     return render(request, 'about.html')
 
 
-def datasource_comparison(request):
-    return render(request, 'compare.html')
-
-
 def download(request):
     fileName = request.GET.get('file_name')
     fileName = fileName.replace(' ', '+')

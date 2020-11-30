@@ -9,7 +9,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="venn.js"></script>
 
         <style>
             body {
@@ -125,41 +124,25 @@ A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.263538579935
                 ];
 
 
-    var chart = venn.VennDiagram()
-        .width(750)
-        .height(600)
-
-      
-
-    var div = d3.select("#venn_one").datum(sets).call(chart);
-        div.selectAll("text").style("fill", "white");
-        div.selectAll(".venn-circle path")
-                .style("fill-opacity", .8)
-                .style("stroke-width", 1)
-                .style("stroke-opacity", 1)
-                .style("stroke", "fff");
-
-
-
     var tooltip = d3.select("#venn_one").append("div")
         .attr("class", "venntooltip");
 
 
-    div.selectAll("g")
+    d3.select("#venn_one").selectAll("g")
         .on("mouseover", function(d, i) {
             // sort all the areas relative to the current item
-            venn.sortAreas(div, d);
+            // venn.sortAreas(div, sets[i]);
 
             // Display a tooltip with the current size
             tooltip.transition().duration(40).style("opacity", 1);
-            tooltip.text(d.size + "% of Audience One saw " + d.label);
+            tooltip.text(sets[i].sets + ': ' + sets[i].figure);
 
             // highlight the current path
             // highlight the current path
             var selection = d3.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .style("stroke-width", 3)
-                .style("fill-opacity", d.sets.length == 1 ? .8 : 0)
+                .style("fill-opacity", sets[i].sets.length == 1 ? .8 : 0)
                 .style("stroke-opacity", 1);
         })
 
@@ -173,7 +156,7 @@ A 192.12507661175493 192.12507661175493 0 0 1 449.3834917335417 161.263538579935
             var selection = d3.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .style("stroke-width", 3)
-                .style("fill-opacity", d.sets.length == 1 ? .8 : 0)
+                .style("fill-opacity", sets[i].sets.length == 1 ? .8 : 0)
                 .style("stroke-opacity", 1);
         });
 

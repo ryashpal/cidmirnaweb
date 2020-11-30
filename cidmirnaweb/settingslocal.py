@@ -2,7 +2,7 @@ from .settingscommon import *
 
 import os
 
-EXTERNAL_BASE_URL = 'http://localhost:9000'
+EXTERNAL_BASE_URL = 'http://127.0.0.1:8000'
 
 ANALYSIS_CODE_ROOT = '/home/ale/programming/bio/CID-miRNA'
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'froala_editor',
+    'django_crontab', 
     'analyses',
     'bioinformatics',
     'linc2function',
@@ -253,4 +254,6 @@ LOGGING['loggers'][''] = {
 
 del datetime, logPath, logNodbPath, l2fPath, logDirectory
 
-
+CRONJOBS = [
+    ('0 0 * * *', 'linc2function.cron.cleanUpTempFiles')
+]

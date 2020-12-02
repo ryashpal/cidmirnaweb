@@ -35,8 +35,8 @@ def annotateFastaFile(uid, model):
     if sequence and fasta_id:
         percentage = calculateCodingPotential(sequence, model)
         radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
-        arc_diagram_path = os.path.join('tmp', uid, radiateImageName)
-        twod_diagram_path = os.path.join('tmp', uid, lineImageName)
+        arc_diagram_path = os.path.join('tmp', uid, lineImageName)
+        twod_diagram_path = os.path.join('tmp', uid, radiateImageName)
         headers, data = predictBindingSites(sequence)
         url = settings.EXTERNAL_BASE_URL + '/linc2function?uid=' + uid + '&model=' + model
         args = {

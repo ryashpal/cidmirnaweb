@@ -37,6 +37,3 @@ def linc2function_data_selection(request):
 def linc2function_feature_tree(request):
     return render(request, 'linc2function_feature_tree.html')
 
-
-def linc2function_disease_ucrs(request):
-    return render(request, 'linc2function_disease_ucrs.html')

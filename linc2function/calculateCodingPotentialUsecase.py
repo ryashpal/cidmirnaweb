@@ -3,13 +3,13 @@ import subprocess
 from django.conf import settings
 from subprocess import Popen
 
-def calculate(sequence, model):
+def calculate(sequence, model, modelType):
     venvPath = os.path.join(settings.LINC2FUNCTION_ROOT, '../.venv/bin/python')
     linc2functionPath = os.path.join(settings.LINC2FUNCTION_ROOT, 'main.py')
     modelRoot = os.path.join(settings.LINC2FUNCTION_ROOT, 'models')
     scalerRoot = os.path.join(settings.LINC2FUNCTION_ROOT, 'scalers')
     model_function = 'predict_hs_model' if model == 'hs' else 'predict_sa_model'
-    command = [venvPath, linc2functionPath, model_function, sequence, modelRoot, scalerRoot]
+    command = [venvPath, linc2functionPath, model_function, sequence, modelType, modelRoot, scalerRoot]
     p = subprocess.Popen(command,
                          stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT)

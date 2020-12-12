@@ -14,11 +14,13 @@ def linc2function(request):
         if form.is_valid():
             fasta = form.cleaned_data['fasta']
             model = request.POST['modelRadios']
-            args = annotateFastaString(fasta, model)
+            modelType = request.POST['typeRadios']
+            args = annotateFastaString(fasta, model, modelType)
             return render(request, 'linc2function_result.html', args)
     elif request.method == 'GET':
         uid = request.GET.get('uid', '')
         model = request.GET.get('model', '')
+        modelType = request.GET.get('type', '')
         if uid and model:
             args= annotateFastaFile(uid, model)
             return render(request, 'linc2function_result.html', args)

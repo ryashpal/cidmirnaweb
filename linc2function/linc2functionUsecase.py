@@ -9,7 +9,7 @@ from .predictSecondaryStructureUsecase import predict as predictSecondaryStructu
 from .predictBindingSitesUsecase import predict as predictBindingSites
 
 
-def annotateFastaString(fasta, model):
+def annotateFastaString(fasta, model, modelType):
     uid = str(uuid.uuid4())
     outputPath = os.path.join(settings.BASE_DIR, 'static', 'tmp', uid)
     if not os.path.exists(outputPath):
@@ -17,10 +17,10 @@ def annotateFastaString(fasta, model):
     fastaFilePath = os.path.join(outputPath, uid + '.fasta')
     with open(fastaFilePath, 'w') as fastaFile:
         fastaFile.write(fasta)
-    return annotateFastaFile(uid, model)
+    return annotateFastaFile(uid, model, modelType)
 
 
-def annotateFastaFile(uid, model):
+def annotateFastaFile(uid, model, modelType):
     outputPath = os.path.join(settings.BASE_DIR, 'static', 'tmp', uid)
     fastaFilePath = os.path.join(outputPath, uid + '.fasta')
     sequence = ''
@@ -33,12 +33,12 @@ def annotateFastaFile(uid, model):
 
     args = {}
     if sequence and fasta_id:
-        percentage = calculateCodingPotential(sequence, model)
+        percentage = calculateCodingPotential(sequence, model, modelType)
         radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
         arc_diagram_path = os.path.join('tmp', uid, lineImageName)
         twod_diagram_path = os.path.join('tmp', uid, radiateImageName)
         headers, data = predictBindingSites(sequence)
-        url = settings.EXTERNAL_BASE_URL + '/linc2function?uid=' + uid + '&model=' + model
+        url = settings.EXTERNAL_BASE_URL + '/linc2function?uid=' + uid + '&model=' + model + '&type=' + modelType
         args = {
             'percentage': percentage, 
             'sequence': sequence, 

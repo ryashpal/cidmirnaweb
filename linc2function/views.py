@@ -22,7 +22,7 @@ def linc2function(request):
         model = request.GET.get('model', '')
         modelType = request.GET.get('type', '')
         if uid and model:
-            args= annotateFastaFile(uid, model)
+            args= annotateFastaFile(uid, model, modelType)
             return render(request, 'linc2function_result.html', args)
     form = Linc2functionForm()
     return render(request, 'linc2function.html', {'form': form})

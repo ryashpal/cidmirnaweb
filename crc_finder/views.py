@@ -1,12 +1,16 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TextForm
 # Create your views here.
 import pandas as pd
 import json
 
-data_file = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
 
+data_file = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
 data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
+
+# data_file = './all_genes_CRCs.csv'
+# data_file2 = './predicted_CRCs.csv'
 # print(data_df)
 
 def CRC_search(gene_names, all_motifs, data_df):
@@ -40,11 +44,14 @@ def CRC_search(gene_names, all_motifs, data_df):
 
 def get_crc(request):
 
-    if request.method == 'POST':
-        form = TextForm(request.POST)
+    if request.method == 'GET':
+        form = TextForm(request.GET)
         if form.is_valid():
             motif_data = form.cleaned_data['motif_search']
             gene_data = form.cleaned_data['gene_search']
+            if motif_data == 'undefined':
+                motif_data = ''
+                gene_data = ''
 
             gene_names = gene_data.lower().split(',')
             all_gene_names = [motif.strip(' ') for motif in gene_names]
@@ -57,6 +64,17 @@ def get_crc(request):
             result_records = result_df[['gene_name', 'cluster_motifs']].reset_index(drop = True).to_json(orient = 'records')
 
             result_records = json.loads(result_records)
+
+            #Pagination
+
+            page = request.GET.get('page', 1)
+            paginator = Paginator(result_records, 10)
+            try:
+                result_records = paginator.page(page)
+            except PageNotAnInteger:
+                result_records = paginator.page(1)
+            except EmptyPage:
+                result_records = paginator.page(paginator.num_pages)
 
             # print(result_records)
 
@@ -76,11 +94,15 @@ def home(request):
 
 def get_novel_crc(request):
 
-    if request.method == 'POST':
-        form = TextForm(request.POST)
+    if request.method == 'GET':
+        form = TextForm(request.GET)
         if form.is_valid():
             motif_data = form.cleaned_data['motif_search']
             gene_data = form.cleaned_data['gene_search']
+            if motif_data == 'undefined':
+                motif_data = ''
+                gene_data = ''
+            # page = form.cleaned_data['page_number']
 
             gene_names = gene_data.lower().split(',')
             all_gene_names = [motif.strip(' ') for motif in gene_names]
@@ -93,6 +115,16 @@ def get_novel_crc(request):
             result_df = result_df.round({"CRC_score":2})
             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
             result_records = json.loads(result_records)
+
+            # Pagination
+            page = request.GET.get('page', 1)
+            paginator = Paginator(result_records, 10)
+            try:
+                result_records = paginator.page(page)
+            except PageNotAnInteger:
+                result_records = paginator.page(1)
+            except EmptyPage:
+                result_records = paginator.page(paginator.num_pages)
 
             # print(result_records)
 

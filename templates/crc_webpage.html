@@ -3,26 +3,79 @@
 {% block content %}
 {% load static %}
 
+<script>
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+var gene_search = getUrlParameter('gene_search');
+var motif_search = getUrlParameter('motif_search');
+var url = '&gene_search='+ gene_search + '&motif_search=' + motif_search;
+
+function first_update() {
+  var num_id = document.getElementById('first_id').href;
+
+  num_id = num_id + url
+  document.getElementById('first_id').href = num_id
+}
+
+function prev_update() {
+  var prev_id = document.getElementById('prev_id').href;
+  prev_id = prev_id + url
+  document.getElementById('prev_id').href = prev_id
+}
+
+function last_update() {
+  var num_id = document.getElementById('last_id').href;
+
+  num_id = num_id + url
+  document.getElementById('last_id').href = num_id
+}
+
+function next_update() {
+  var next_id = document.getElementById('next_id').href;
+  next_id = next_id + url
+  document.getElementById('next_id').href = next_id
+}
+
+</script>
+
+
 <html>
 <head>
 <title>
   CRC Finder
 </title>
+
 <style media="screen">
+    table {
+      margin-top : 10px;
+      min-width : 75%;
+    }
     table, th, td {
       border : 1px solid black;
     }
     th, td {
       padding : 7px;
     }
+    .pagination_class {
+      font-size : 13px;
+      font-weight : bold;
+    }
 </style>
+
 </head>
 <body>
-  <!-- <form action="/searcher/results/" method="get">
-        <label for="results">Enter a string: </label>
-        <input id="results" type="text" name="results" value="{{ search_results }}">
-        <input type="submit" value="submit">
-    </form>  -->
     <div>
       <center>
         <div style = 'color: white;
@@ -38,7 +91,7 @@
           Search for motif clusters spread over the complete genome
           </h3>
           <br>
-    <form action="" method="POST">
+    <form id="form_submit" action="" method="GET">
     {% csrf_token %}
     <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}
     <br>
@@ -48,7 +101,6 @@
     <br>
     <input type="submit" value="Search CRCs">
     </form>
-    <br>
     <br>
     {% if full_data %}
     {% if full_data.gene != '' %}
@@ -62,7 +114,43 @@
       {{ full_data.motif }}
       {% endif %}
     <br>
-    <br>
+
+    <div style="display:flex; flex-direction:row; justify-content: space-around;">
+      <div style="margin-top: 10px;font-size: 15px;">
+        <span class="current">
+          Page {{ full_data.result.number }} of {{ full_data.result.paginator.num_pages }}
+        </span>
+        </div>
+        <div>
+        {% if full_data.result.has_other_pages %}
+      <ul class="pagination" style = "display: table; align-items: center; margin: auto;border-radius: 4px;">
+        {% if full_data.result %}
+          <li  onclick="first_update()" class = 'pagination_class'><a id="first_id" href="?page=1">First Page </a></li>
+        {% else %}
+          <li class="disabled pagination_class"><span >First Page</span></li>
+        {% endif %}
+
+        {% if full_data.result.has_previous %}
+          <li onclick="prev_update()" class = "pagination_class"><a id="prev_id" href="?page={{ full_data.result.previous_page_number }}">Previous Page</a></li>
+        {% else %}
+          <li class="disabled pagination_class"><span>Previous Page</span></li>
+        {% endif %}
+
+        {% if full_data.result.has_next %}
+          <li  onclick="next_update()" class = 'pagination_class'><a id="next_id" href="?page={{ full_data.result.next_page_number }}">Next Page</a></li>
+        {% else %}
+          <li class="disabled pagination_class"><span >Next Page</span></li>
+        {% endif %}
+
+        {% if full_data.result.paginator.num_pages %}
+          <li  onclick="last_update()" class = 'pagination_class'><a id="last_id" href="?page={{ full_data.result.paginator.num_pages }}">Last Page</a></li>
+        {% else %}
+          <li class="disabled pagination_class"><span >Last Page</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+    </div>
+    </div>
     <!-- {{ full_data.result }} -->
     {% if full_data.result|length > 0%}
     <table>
@@ -87,7 +175,7 @@
       {% endif %}
     </center>
     </div>
-
+<br>
 </body>
 </html>
 {% endblock %}

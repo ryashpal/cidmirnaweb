@@ -43,6 +43,7 @@ def annotateFastaFile(uid, model, modelType):
             'percentage': percentage, 
             'sequence': sequence, 
             'model': model, 
+            'type': modelType, 
             'arc_diagram_path': arc_diagram_path, 
             'twod_diagram_path': twod_diagram_path, 
             'headers': headers, 
@@ -50,7 +51,7 @@ def annotateFastaFile(uid, model, modelType):
             'transcript_id': fasta_id, 
             'url': url, 
             }
-        logging.info('linc2function|' + model + '|' + fasta_id + '|' + sequence + '|' + uid + '|' + str(percentage))
+        logging.info('linc2function|' + model + '|' modelType + '|' + fasta_id + '|' + sequence + '|' + uid + '|' + str(percentage))
 
     return args
 

@@ -35,10 +35,14 @@
             <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#coding_potential_pnl"></span>
         </h3>
     </div>
-    {% if model == 'hs' %}
-    <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific</span> model: {{percentage}} %</h4>
+    {% if model == 'hs' and type == 'basic'%}
+    <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific - Basic</span> Model: {{percentage}} %</h4>
+    {% elif model == 'hs' and type == 'standard'%}
+    <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific - Standard</span> Model: {{percentage}} %</h4>
+    {% elif model == 'sa' and type == 'basic'%}
+    <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic - Basic</span> Model: {{percentage}} %</h4>
     {% else %}
-    <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic</span> model: {{percentage}} %</h4>
+    <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic - Standard</span> Model: {{percentage}} %</h4>
     {% endif %}
     <div id="coding_potential_pnl" class="progress collapse in" data-toggle="tooltip" title="Coding Potential Percentage for the Given Sequence">
         <div 

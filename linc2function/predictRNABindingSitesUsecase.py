@@ -12,7 +12,7 @@ def predict(fasta_id, uid):
     outputFlag = '-o'
     outputFile = os.path.join(outputPath, fasta_id + '.riblast')
     dbFlag = '-d'
-    dbPath = os.path.join(settings.RIBLAST_ROOT, '34_v15_ncrnas.db', '34_v15_ncrnas.db')
+    dbPath = os.path.join(settings.RIBLAST_ROOT, 'mirbase.db', 'mirbase.db')
     command = [riblastPath, ris, inputFlag, inputPath, outputFlag, outputFile, dbFlag, dbPath]
     p = subprocess.Popen(command,
                          stdout=subprocess.PIPE,

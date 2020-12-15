@@ -5,6 +5,7 @@ from django.conf import settings
 from Bio import SeqIO
 
 from .calculateCodingPotentialUsecase import calculate as calculateCodingPotential
+from .calculateTriplexFormingPotentialUsecase import calculate as calculateTriplexFormingPotential
 from .predictSecondaryStructureUsecase import predict as predictSecondaryStructure
 from .predictBindingSitesUsecase import predict as predictBindingSites
 
@@ -34,6 +35,7 @@ def annotateFastaFile(uid, model, modelType):
     args = {}
     if sequence and fasta_id:
         percentage = calculateCodingPotential(sequence, model, modelType)
+        tfp = calculateTriplexFormingPotential(sequence)
         radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
         arc_diagram_path = os.path.join('tmp', uid, lineImageName)
         twod_diagram_path = os.path.join('tmp', uid, radiateImageName)
@@ -41,6 +43,7 @@ def annotateFastaFile(uid, model, modelType):
         url = settings.EXTERNAL_BASE_URL + '/linc2function?uid=' + uid + '&model=' + model + '&type=' + modelType
         args = {
             'percentage': percentage, 
+            'tfp': tfp, 
             'sequence': sequence, 
             'model': model, 
             'type': modelType, 

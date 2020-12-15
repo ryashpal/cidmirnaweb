@@ -15,6 +15,5 @@ def calculate(sequence, model, modelType):
                          stderr=subprocess.STDOUT)
     lines = [line for line in iter(p.stdout.readline, b'')]
     codingPotential = round(float(lines[-1].decode("utf-8").strip()[2:-2]) * 100.0, 2)
-    codingPotential = round(100.0 - codingPotential, 2)
     return codingPotential
 

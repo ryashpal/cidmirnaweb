@@ -7,7 +7,7 @@
 
 <div class="main">
     <h1>linc2function</h1>
-    <h3>linc2function: A Deep Learning model to identify and assign function to long noncoding RNA (lncRNA)</h3>
+    <h3>linc2function: A deep learning model to identify and assign function to long noncoding RNA (lncRNA)</h3>
 
 <hr>
 
@@ -22,13 +22,13 @@
         <h4>Transcript Name: </h4><strong>{{transcript_id}}</strong>
         <hr>
         {% if model == 'hs' and type == 'basic'%}
-        <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific - Light Weight</span> Model: {{percentage}} %</h4>
+        <h4>LncRNA Prediction Confidence as obtained from <span class="label label-primary">Human Specific - Light Weight</span> Model: {{percentage}} %</h4>
         {% elif model == 'hs' and type == 'standard'%}
-        <h4>Coding Potential as obtained from <span class="label label-primary">Human Specific - Full</span> Model: {{percentage}} %</h4>
+        <h4>LncRNA Prediction Confidence as obtained from <span class="label label-primary">Human Specific - Full</span> Model: {{percentage}} %</h4>
         {% elif model == 'sa' and type == 'basic'%}
-        <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic - Light Weight</span> Model: {{percentage}} %</h4>
+        <h4>LncRNA Prediction Confidence as obtained from <span class="label label-primary">Species Agnostic - Light Weight</span> Model: {{percentage}} %</h4>
         {% else %}
-        <h4>Coding Potential as obtained from <span class="label label-primary">Species Agnostic - Full</span> Model: {{percentage}} %</h4>
+        <h4>LncRNA Prediction Confidence as obtained from <span class="label label-primary">Species Agnostic - Full</span> Model: {{percentage}} %</h4>
         {% endif %}
         <div id="coding_potential_pnl" class="progress collapse in" data-toggle="tooltip" title="Coding Potential Percentage for the Given Sequence">
             <div 

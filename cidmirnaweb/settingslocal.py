@@ -47,3 +47,6 @@ LINC2FUNCTION_ROOT = '/home/monash/minor_thesis/workspace/linc2functionpipeline/
 # SPOT-RNA 
 SPOTRNA_ROOT = '/home/monash/minor_thesis/workspace/SPOT-RNA'
 
+# RIblast
+RIBLAST_ROOT = '/home/monash/minor_thesis/workspace/RIblast'
+

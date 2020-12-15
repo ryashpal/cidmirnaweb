@@ -70,13 +70,44 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    {% for header in headers %}
+                    {% for header in rbp_headers %}
                         <th>{{ header }}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
-                {% for row in data %}
+                {% for row in rbp_data %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="label label-default">RNA Interactome</span>
+            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rna_interactome_pnl"></span>
+        </h3>
+    </div>
+    <div id="rna_interactome_pnl" class="panel-body collapse in" style="height: 300px; overflow-y: scroll;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    {% for header in rna_headers %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rna_data %}
                     <tr>
                         {% for cell in row %}
                             <td>{{ cell }}</td>

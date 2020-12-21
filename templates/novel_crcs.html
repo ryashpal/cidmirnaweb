@@ -73,7 +73,7 @@ function next_update() {
 </style>
 </head>
 <body>
-    <div>
+    <div style = 'min-height: 550px;'>
       <center>
         <div style = 'color: white;
     background-color: brown;
@@ -81,15 +81,20 @@ function next_update() {
     border-radius: 10px;
     border: 1px solid black;
     height: 80px;'>
-        <h1> Novel CRCs Finder</h1>
+        <h1> Novel CRC Finder and Database</h1>
         </div>
         <br>
-        <h3>
-          Search for predicted CRCs
-        </h3>
+        <h4 style='text-align: left;'>
+          Motif pairs without any known protein-protein interaction scores were predicted with the model.
+          These novel pairs were clustered into Co-Regulatory Clusters (CRCs).
+          Search for these novel CRCs from our database.
+          </h4>
         <br>
     <form id="form_submit" action="" method="GET">
     <!-- {% csrf_token %} -->
+    <span style = 'font-size:20px'>Species:</span> {{ data.species}}
+    <br>
+    <br>
     <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}
     <br>
     <br>
@@ -174,7 +179,16 @@ function next_update() {
       {% endif %}
     </center>
     </div>
-<br>
+    <br>
+    <hr>
+    <footer>
+    <p>If you are using this database, Please cite as,
+      </p>
+    <blockquote style="font-size: 14px; text-align: left;">
+      <p>
+        Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of transcription factor motifs<a> (Unpublished)</a></p>
+        </blockquote>
+        </footer>
 </body>
 </html>
 {% endblock %}

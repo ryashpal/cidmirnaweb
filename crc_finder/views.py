@@ -68,7 +68,7 @@ def get_crc(request):
             #Pagination
 
             page = request.GET.get('page', 1)
-            paginator = Paginator(result_records, 10)
+            paginator = Paginator(result_records, 50)
             try:
                 result_records = paginator.page(page)
             except PageNotAnInteger:
@@ -118,7 +118,7 @@ def get_novel_crc(request):
 
             # Pagination
             page = request.GET.get('page', 1)
-            paginator = Paginator(result_records, 10)
+            paginator = Paginator(result_records, 50)
             try:
                 result_records = paginator.page(page)
             except PageNotAnInteger:

@@ -3,19 +3,55 @@
 {% block content %}
 {% load static %}
 
-<h1>Deep-EMSCAN</h1>
+<h1>CRC Database</h1>
 <h3>
-  A Deep Learning Approach to Recover Biologically Significant Motifs
+  A curated database of human Co-Regulatory clusters (CRC) of transcription factor motifs
   </h3>
   <br>
 <p style = 'font-size: 18px'>
-  DNA motifs are short (5-20 bp) recurring patterns that represent binding sites for regulatory proteins such as Transcription Factors (TF) or RNA binding proteins (RBP).
+  DNA motifs are short (5-20 bp) recurring patterns that represent binding sites for regulatory proteins such as Transcription Factors (TF).
   These motifs along with the genes make up the gene regulation machinery in a living organism. Searching for these small patterns in large genomic data (up to billion bp) is very challenging. Further, these motifs may work in collaboration with one or more other motifs, and it is a computationally expensive task to find various permutations with a biological function.
   <br><br>
-We built an Artificial Neural Network (ANN) model to predict the co-occurrence of motifs from given instances of a TF binding motif. The data consisted of labelled co-occurring and non-co-occurring motif pairs bound by TF in the gene promoter region. Then we grouped co- located motif instances into clusters, also known as Co-Regulatory Clusters (CRCs). Multiple features based on DNA shape, DNA composition, and protein-protein interaction (PPI) were calculated to study the biophysical characteristics of co-occurring motifs. Extensive feature engineering was performed to rank and select features and to train the ANN model. The motifs involved in binding, DNA shapes such as OC2, EP, Opening and Stagger, and DNA binding domains and PPI score of TFs occupying these motifs were found to be the most distinguishing features.
-<br><br>
-We have applied this model to locate collaborative TF binding sites in the data generated through ChIP-Seq experiments with 83% accuracy. We curated the UniBind database containing ChIP-Seq data from over 1983 samples and 231 TFs. We predicted 2207 potential motif pairs arranged in 482 CRCs.
-These predicted CRCs are output with a query on the other tabs. Future work would involve the extension of the same workflow to RBP sites on RNA molecules.
+We built an Artificial Neural Network (ANN) model to predict the co-occurrence of motifs from given instances of a TF binding motif. Then we grouped co-located motif instances into clusters, also known as Co-Regulatory Clusters (CRCs). Multiple features based on DNA shape, DNA composition, and protein-protein interaction (PPI) were calculated to study the biophysical characteristics of co-occurring motifs.
+We applied this model to locate collaborative TF binding sites in the data generated through ChIP-Seq experiments with 89% accuracy.
   </p>
+  <hr>
+  <h3 style = 'color:blue'>
+    Querying the database of CRCs:
+    </h3>
+    <h4>
+      <u><a href = '/crc_finder'>CRC Finder</a></u>
+      </h4>
+      <p style = 'font-size: 16px'>
+        ⁍ Search for Co-Regulatory Clusters annotated from known ChIP-Seq datasets from 231 human TFs
+        </p>
+        <p style = 'font-size: 16px'>
+          ⁍ Enter one or more gene and motif names to query from our database
+          </p>
+      <p>
+        </p>
+    <h4>
+      <u><a href = '/novel_crcs'>Novel CRCs</a></u>
+      </h4>
+      <p style = 'font-size: 16px'>
+        ⁍ Search for Novel Co-Regulatory Clusters predicted from our model without any known protein-pretein interactions
+        </p>
+        <p style = 'font-size: 16px'>
+          ⁍ Enter one or more gene and motif names to query from our database where every CRC has an associated CRC score
+          </p>
+  <hr>
+  <h4>
+    If you have any queries, please contact Sonika Tyagi at <a href = 'mailto:sonika.tyagi@monash.edu'>sonika.tyagi@monash.edu</a>
+    </h4>
+
+    <footer>
+    <p>If you are using this database, Please cite as,
+      </p>
+    <blockquote style="font-size: 14px; text-align: left;">
+      <p>
+        Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of transcription factor motifs<a> (Unpublished)</a></p>
+        </blockquote>
+        </footer>
+
 {% endblock %}
 

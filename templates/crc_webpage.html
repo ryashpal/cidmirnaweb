@@ -76,7 +76,7 @@ function next_update() {
 
 </head>
 <body>
-    <div>
+    <div style = 'min-height: 550px;'>
       <center>
         <div style = 'color: white;
     background-color: brown;
@@ -84,15 +84,19 @@ function next_update() {
     border-radius: 10px;
     border: 1px solid black;
     height: 80px;'>
-        <h1> CRC Finder</h1>
+        <h1> CRC Finder and Database</h1>
         </div>
         <br>
-        <h3>
-          Search for motif clusters spread over the complete genome
-          </h3>
+        <h4 style='text-align: left;'>
+          DNA motifs bound by transcription factors (TFs) work together to co-regulate gene expression.
+          We call them Co-Regulatory Clusters (CRCs). We annotated CRCs from known ChIP-Seq datasets from 231 human TFs by using a Machine Learning approach.
+          </h4>
           <br>
     <form id="form_submit" action="" method="GET">
     {% csrf_token %}
+    <span style = 'font-size:20px'>Species:</span> {{ data.species}}
+    <br>
+    <br>
     <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}
     <br>
     <br>
@@ -176,6 +180,15 @@ function next_update() {
     </center>
     </div>
 <br>
+<hr>
+<footer>
+<p>If you are using this database, Please cite as,
+  </p>
+<blockquote style="font-size: 14px; text-align: left;">
+  <p>
+    Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of transcription factor motifs<a> (Unpublished)</a></p>
+    </blockquote>
+    </footer>
 </body>
 </html>
 {% endblock %}

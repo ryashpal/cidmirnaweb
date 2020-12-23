@@ -17,8 +17,12 @@ def annotateFastaString(fasta, model, modelType):
     if not os.path.exists(outputPath):
         os.makedirs(outputPath)
     fastaFilePath = os.path.join(outputPath, uid + '.fasta')
+    fastaLines = fasta.strip().split('\n')
     with open(fastaFilePath, 'w') as fastaFile:
-        fastaFile.write(fasta)
+        if fastaLines and fastaLines[0] and fastaLines[1]:
+            fastaFile.write(fastaLines[0].strip())
+            fastaFile.write('\n')
+            fastaFile.write(fastaLines[1].strip())
     return annotateFastaFile(uid, model, modelType)
 
 
@@ -39,7 +43,7 @@ def annotateFastaFile(uid, model, modelType):
         tfp = calculateTriplexFormingPotential(sequence)
         arc_diagram_path = ''
         twod_diagram_path = ''
-        if len(sequence) > 700:
+        if len(sequence) < 700:
             radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
             arc_diagram_path = os.path.join('tmp', uid, lineImageName)
             twod_diagram_path = os.path.join('tmp', uid, radiateImageName)

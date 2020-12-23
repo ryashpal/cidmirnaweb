@@ -37,6 +37,8 @@ def annotateFastaFile(uid, model, modelType):
     if sequence and fasta_id:
         percentage = calculateCodingPotential(sequence, model, modelType)
         tfp = calculateTriplexFormingPotential(sequence)
+        arc_diagram_path = ''
+        twod_diagram_path = ''
         if len(sequence) > 700:
             radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
             arc_diagram_path = os.path.join('tmp', uid, lineImageName)

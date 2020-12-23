@@ -60,14 +60,19 @@
 <hr>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading" style="overflow-y: auto;">
         <h3 class="panel-title">
-            <span class="label label-default">Protein Interactome</span>
-            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rbp_interactome_pnl"></span>
+            <div class="col-xs-10">
+                <span class="label label-default">Protein Interactome</span>
+                <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rbp_interactome_pnl"></span>
+            </div>
+            <div class="col-xs-2">
+                <button id="rbp_interactome_btn" class="btn btn-default glyphicon glyphicon-download-alt"></button>
+            </div>
         </h3>
     </div>
-    <div id="rbp_interactome_pnl" class="panel-body collapse in" style="height: 300px; overflow-y: scroll;">
-        <table class="table table-striped">
+    <div id="rbp_interactome_pnl" class="panel-body panel_height_300px collapse in" style="overflow-y: scroll;">
+        <table id="rbp_interactome_table" class="table table-striped">
             <thead>
                 <tr>
                     {% for header in rbp_headers %}
@@ -91,14 +96,19 @@
 <hr>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading" style="overflow-y: auto;">
         <h3 class="panel-title">
-            <span class="label label-default">RNA Interactome</span>
-            <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rna_interactome_pnl"></span>
+            <div class="col-xs-10">
+                <span class="label label-default">RNA Interactome</span>
+                <span name="toggle_pnl" class="glyphicon glyphicon-menu-up" aria-hidden="true" data-toggle="collapse" href="#rna_interactome_pnl"></span>
+            </div>
+            <div class="col-xs-2">
+                <button id="rna_interactome_btn" class="btn btn-default glyphicon glyphicon-download-alt"></button>
+            </div>
         </h3>
     </div>
-    <div id="rna_interactome_pnl" class="panel-body collapse in" style="height: 300px; overflow-y: scroll;">
-        <table class="table table-striped">
+    <div id="rna_interactome_pnl" class="panel-body panel_height_300px collapse in" style="overflow-y: scroll;">
+        <table id="rna_interactome_table" class="table table-striped">
             <thead>
                 <tr>
                     {% for header in rna_headers %}
@@ -208,6 +218,62 @@
         $('span[name="toggle_pnl"]').click(function () {
             $(this).toggleClass("glyphicon-menu-down").toggleClass("glyphicon-menu-up");
         });
+    });
+
+</script>
+
+<script>
+    function download_csv(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV FILE
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // We have to create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Make sure that the link is not displayed
+    downloadLink.style.display = "none";
+
+    // Add the link to your DOM
+    document.body.appendChild(downloadLink);
+
+    // Lanzamos
+    downloadLink.click();
+    }
+
+    function export_table_to_csv(html, filename) {
+        var csv = [];
+        var rows = html.querySelectorAll("table tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+
+            for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText);
+
+            csv.push(row.join(","));		
+        }
+
+        // Download CSV
+        download_csv(csv.join("\n"), filename);
+    }
+
+    document.getElementById("rna_interactome_btn").addEventListener("click", function () {
+        var html = document.getElementById("rna_interactome_table");
+        export_table_to_csv(html, "rna_interactome.csv");
+    });
+
+    document.getElementById("rbp_interactome_btn").addEventListener("click", function () {
+        var html = document.getElementById("rbp_interactome_table");
+        export_table_to_csv(html, "rbp_interactome.csv");
     });
 
 </script>

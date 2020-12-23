@@ -3,6 +3,7 @@ import subprocess
 from subprocess import Popen
 from django.conf import settings
 
+
 def predict(fasta_id, uid):
     riblastPath = os.path.join(settings.RIBLAST_ROOT, 'RIblast')
     ris = 'ris'

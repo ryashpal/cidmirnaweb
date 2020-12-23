@@ -37,9 +37,12 @@ def annotateFastaFile(uid, model, modelType):
     if sequence and fasta_id:
         percentage = calculateCodingPotential(sequence, model, modelType)
         tfp = calculateTriplexFormingPotential(sequence)
-        radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
-        arc_diagram_path = os.path.join('tmp', uid, lineImageName)
-        twod_diagram_path = os.path.join('tmp', uid, radiateImageName)
+        arc_diagram_path = ''
+        twod_diagram_path = ''
+        if len(sequence) > 700:
+            radiateImageName, lineImageName = predictSecondaryStructure(fasta_id, uid)
+            arc_diagram_path = os.path.join('tmp', uid, lineImageName)
+            twod_diagram_path = os.path.join('tmp', uid, radiateImageName)
         rbp_headers, rbp_data = predictRBPBindingSites(sequence)
         rna_headers, rna_data = predictRNABindingSites(fasta_id, uid)
         url = settings.EXTERNAL_BASE_URL + '/linc2function?uid=' + uid + '&model=' + model + '&type=' + modelType

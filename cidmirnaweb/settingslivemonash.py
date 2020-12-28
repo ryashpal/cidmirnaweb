@@ -47,5 +47,5 @@ SPOTRNA_ROOT = '/home/cidmirna/SPOT-RNA'
 
 # RIblast
 RIBLAST_ROOT = '/home/cidmirna/RIblast'
-RIBLAST_DB = '/tsonika-data/linc2function/RIblast/homo_sapiens_AND_TAXONOMY9606.db/homo_sapiens_AND_TAXONOMY9606.db'
+RIBLAST_DB = '/home/cidmirna/RIblast/mirbase.db/mirbase.db'
 

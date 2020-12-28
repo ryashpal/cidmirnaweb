@@ -49,4 +49,5 @@ SPOTRNA_ROOT = '/home/monash/minor_thesis/workspace/SPOT-RNA'
 
 # RIblast
 RIBLAST_ROOT = '/home/monash/minor_thesis/workspace/RIblast'
+RIBLAST_DB = '/home/monash/minor_thesis/workspace/RIblast/mirbase.db/mirbase.db'
 

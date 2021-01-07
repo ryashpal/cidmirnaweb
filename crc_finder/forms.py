@@ -1,10 +1,6 @@
 from django import forms
 
 class TextForm(forms.Form):
-    COLOR_CHOICES = (
-    ('homo_sapien','hg.38'),
-)
-    species = forms.CharField(label='Species', max_length=100, widget=forms.Select(choices=COLOR_CHOICES), initial='FIXED')
     gene_search = forms.CharField(label='Gene Search', max_length=100, required=False,
                                     widget=forms.TextInput(attrs={'placeholder': 'Eg: FTL, RP11-399B17.1'}))
     motif_search = forms.CharField(label='Motif Search', max_length=100, required=False,

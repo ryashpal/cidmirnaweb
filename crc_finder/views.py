@@ -15,7 +15,7 @@ data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
 
 def CRC_search(gene_names, all_motifs, data_df):
 
-    print(gene_names)
+    # print(gene_names)
     if not gene_names[0]:
         temp_df = data_df.copy()
     else:
@@ -99,6 +99,7 @@ def get_novel_crc(request):
         if form.is_valid():
             motif_data = form.cleaned_data['motif_search']
             gene_data = form.cleaned_data['gene_search']
+
             if motif_data == 'undefined':
                 motif_data = ''
                 gene_data = ''
@@ -117,7 +118,10 @@ def get_novel_crc(request):
             result_records = json.loads(result_records)
 
             # Pagination
+            
             page = request.GET.get('page', 1)
+            # print(page)
+            
             paginator = Paginator(result_records, 50)
             try:
                 result_records = paginator.page(page)

@@ -92,9 +92,14 @@ function next_update() {
           We call them Co-Regulatory Clusters (CRCs). We annotated CRCs from known ChIP-Seq datasets from 231 human TFs by using a Machine Learning approach.
           </h4>
           <br>
+
+  <label style = 'font-size:20px'>Species:</label>
+  <select name="species" id="species">
+    <option value="homo_sapien">hg.38</option>
+  </select>
+
     <form id="form_submit" action="" method="GET">
     {% csrf_token %}
-    <span style = 'font-size:20px'>Species:</span> {{ data.species}}
     <br>
     <br>
     <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}

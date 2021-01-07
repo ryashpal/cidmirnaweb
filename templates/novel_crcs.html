@@ -90,9 +90,13 @@ function next_update() {
           Search for these novel CRCs from our database.
           </h4>
         <br>
+
+    <label style = 'font-size:20px'>Species:</label>
+    <select name="species" id="species">
+      <option value="homo_sapien">hg.38</option>
+    </select>
     <form id="form_submit" action="" method="GET">
     <!-- {% csrf_token %} -->
-    <span style = 'font-size:20px'>Species:</span> {{ data.species}}
     <br>
     <br>
     <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}

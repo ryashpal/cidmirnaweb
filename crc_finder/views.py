@@ -13,6 +13,10 @@ data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
 # data_file2 = './predicted_CRCs.csv'
 # print(data_df)
 
+data_df = pd.read_csv(data_file)
+data_df2 = pd.read_csv(data_file2)
+
+
 def CRC_search(gene_names, all_motifs, data_df):
 
     # print(gene_names)
@@ -59,14 +63,11 @@ def get_crc(request):
             all_motifs = [motif.strip(' ') for motif in all_motifs]
             # print('Gene', gene_name)
             # print('Motifs', all_motifs)
-            data_df = pd.read_csv(data_file)
             result_df = CRC_search(all_gene_names, all_motifs, data_df)
-            result_records = result_df[['gene_name', 'cluster_motifs']].reset_index(drop = True).to_json(orient = 'records')
-
+            result_df = result_df.round({"CRC_score":2})
+            result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
             result_records = json.loads(result_records)
-
             #Pagination
-
             page = request.GET.get('page', 1)
             paginator = Paginator(result_records, 50)
             try:
@@ -111,7 +112,6 @@ def get_novel_crc(request):
             all_motifs = [motif.strip(' ') for motif in all_motifs]
             # print('Gene', gene_name)
             # print('Motifs', all_motifs)
-            data_df2 = pd.read_csv(data_file2)
             result_df = CRC_search(all_gene_names, all_motifs, data_df2)
             result_df = result_df.round({"CRC_score":2})
             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')

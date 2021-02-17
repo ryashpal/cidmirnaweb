@@ -2,7 +2,7 @@ from .settingscommon import *
 
 import os
 
-ALLOWED_HOSTS = ['tsonika-lab.erc.monash.edu', '118.138.254.185']
+ALLOWED_HOSTS = ['bioinformaticslab.erc.monash.edu', '118.138.241.188']
 
 EXTERNAL_BASE_URL = 'http://%s' % ALLOWED_HOSTS[0]
 

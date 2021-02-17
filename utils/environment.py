@@ -8,7 +8,7 @@ def are_we_at_home():
 
 def are_we_at_monash():
     import socket
-    return socket.gethostname() == 'tsonika-lab'
+    return socket.gethostname() == 'bioinformaticslab'
 
 
 def setup_settings():

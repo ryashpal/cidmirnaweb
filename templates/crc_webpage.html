@@ -167,6 +167,7 @@ function next_update() {
         <tr>
           <th> Nearest gene </th>
             <th> Co-regulatory motifs </th>
+            <th> CRC_score </th>
           </tr>
       </thead>
       <tbody>
@@ -174,6 +175,7 @@ function next_update() {
           <tr>
             <td>{{ row.gene_name }}</td>
             <td>{{ row.cluster_motifs}} </td>
+            <td>{{ row.CRC_score}} </td>
             </tr>
             {% endfor %}
       {% else %}

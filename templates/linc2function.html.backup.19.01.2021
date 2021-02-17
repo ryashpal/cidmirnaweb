@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Linc2Function{% endblock %}
+{% block content %}
+
+<div class="main">
+    <h1>linc2function</h1>
+    <p>linc2function: A deep learning model to identify and assign function to long noncoding RNA (lncRNA)</p>
+
+<hr>
+
+<form id="linc2function_form" action="/linc2function" method="post">
+    <div class="row" style="margin-top:20px">
+        <h4>Paste sequence in FASTA format</h4>
+    </div>
+    <div class="row" style="margin-top:20px">
+        {% csrf_token %}
+        {{ form }}
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="radio-inline form-check">
+            <input class="form-check-input" type="radio" name="modelRadios" id="sa_radio" value="sa" checked>
+            <label class="form-check-label" for="sa_radio">
+                Species Agnostic
+            </label>
+          </div>
+          <div class="radio-inline form-check">
+            <input class="form-check-input" type="radio" name="modelRadios" id="hs_radio" value="hs">
+            <label class="form-check-label" for="hs_radio">
+                Human Specific
+            </label>
+          </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="radio-inline form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="typeRadios" 
+                id="standard_radio" 
+                value="standard" 
+                checked>
+            <label class="form-check-label" for="standard_radio">
+                Full Model
+            </label>
+          </div>
+          <div class="radio-inline form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="typeRadios" 
+                id="basic_radio" 
+                value="basic">
+            <label class="form-check-label" for="basic_radio">
+                Light Weight Model
+            </label>
+          </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        <input class="btn btn-danger" type="reset" value="Reset">
+    </div>
+
+    <hr>
+
+    <div class="row" style="margin-top:20px">
+        <button name='btn_test_lncrna' type="button" class="btn btn-default" aria-label="Load Test LncRNA">
+            Load Test LncRNA
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        </button>
+        <button name='btn_test_mrna' type="button" class="btn btn-default" aria-label="Load Test mRNA">
+            Load Test mRNA
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        </button>
+    </div>
+</form>
+
+<hr>
+
+<p>Source code to Linc2Function is available from <a href="https://gitlab.com/tyagilab/linc2functionpipeline/">https://gitlab.com/tyagilab/linc2functionpipeline/</a></p>. 
+    <p>If you use the pipeline, please cite the following articles</p>
+    <blockquote style="font-size: 14px; text-align: left;">
+        <p>Yashpal Ramakrishnaiah, Levin Kuhlmann, Sonika Tyagi, <a href="http://www.sciencedirect.com/science/article/pii/S0010482520303590">Towards a comprehensive pipeline to identify and functionally annotate long noncoding RNA (lncRNA)</a>,</p>
+        <p>Computers in Biology and Medicine, Volume 127, 2020, 104028, ISSN 0010-4825, https://doi.org/10.1016/j.compbiomed.2020.104028.</p>
+    </blockquote>
+    <blockquote style="font-size: 14px; text-align: left;">
+        <p>Yashpal Ramakrishnaiah, Levin Kuhlmann, Sonika Tyagi, <a href="https://tsonika-lab.erc.monash.edu/linc2function">linc2function: A deep learning model to identify and assign function to long noncoding RNA (lncRNA)</a>,</p>
+        <p>Unpublished manuscript.</p>
+    </blockquote>
+    <p>For further correspondence please contact Dr. Sonika Tyagi <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:sonika.tyagi@monash.edu">sonika.tyagi@monash.edu</a></p>
+</p>
+
+<hr>
+
+<script>
+
+    document.getElementsByName('fasta')[0].oninput = function (e) {
+        this.value = this.value.toUpperCase();
+        // this.value = this.value.replace(/[^ACGTU]/g, '')
+    }
+
+    document.getElementsByName('btn_test_lncrna')[0].onclick = function(e) {
+        document.getElementsByName('fasta')[0].value = '>test_lncrna\nACUCCAGAAUGGGCUCCCUCAGUCGGAAGUCUCCCCGCUCCACCGCCCCCAGUGUAACCCCUCCAACCCAGAAACGCCGACUGCACUAGCGCCCCCUGCCCAGAAUCUCCACCCUUAGCGCUGAAGCCACGCCCACUGGGUGGGCGAAAGGAAUACGACACAAGGAGAUUCCCUUAACAUAGGAUGCAUCUUGUACUUGAUGUGAAAAGAAACCACUCGGCUGGGCGCAGUGGCUCACACUUGUAAUCCCAGCACUUUGGGAGGCCGAGACGGGUGGAUCACGAGGUCAGGAGAUCGAGACCAUCCUGGCUAACACAGUGAAACCCCGUCUCUACUAAAAAUACAAAAAAUUAGUUGGGUGUGGUGGCGGGCGCCUGUAGUCCCAGCUACUCAGGAGGCUGAGGCAGGAGAAUGGCAUGAACCUGGGAGGUGGAGCUUGCAGUGAGCAGAGAUCGCCCCACUGCAAUCCAGCCCGGGCGACAGAGUGAGACACCGUCUCAAAAAAAAAAAAAGAAACCACUAUGUCAGUUUAAUUGGCAGCUUUUUUUCUUUCUUUCUUUUUUUCUUUUCUUUCUUUCCUUUCUUUCUUUACAGCACUUAAAGACACAAUUUACAAUAAGCAGU'
+    }
+
+    document.getElementsByName('btn_test_mrna')[0].onclick = function(e) {
+        document.getElementsByName('fasta')[0].value = '>test_mrna\nCAGCGCTTGGGGCTCGCGGGCCGCTCCCTCCGCTCGGAAGGGAAAAGTCTGAAGACGCTTATGTCCAAGGGGATCCTGCAGGTGCATCCTCCGATCTGCGACTGCCCGGGCTGCCGAATATCCTCCCCGGTGAACCGGGGGCGGCTGGCAGACAAGAGGACAGTCGCCCTGCCTGCCGCCCGGAACCTGAAGAAGGAGCGAACTCCCAGCTTCTCTGCCAGCGATGGTGACAGCGACGGGAGTGGCCCCACCTGTGGGCGGCGGCCAGGCTTGAAGCAGGAGGATGGTCCGCACATCCGTATCATGAAGAGAAGAGTCCACACCCACTGGGACGTGAACATCTCTTTCCGAGAGGCGTCCTGCAGCCAGGACGGCAACCTTCCCACC'
+    }
+
+</script>
+
+{% endblock content %}
+

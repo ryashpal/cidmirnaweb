@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^teaching$', views.teaching, name='teaching'),
     url(r'^news$', views.news, name='news'),
     url(r'^froala_editor/', include('froala_editor.urls')),
+    path('download_csv/<str:csv_file>', views.send_file, name='send_file'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

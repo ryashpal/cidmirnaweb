@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.urls import path
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
@@ -46,7 +45,7 @@ urlpatterns = [
     url(r'^teaching$', views.teaching, name='teaching'),
     url(r'^news$', views.news, name='news'),
     url(r'^froala_editor/', include('froala_editor.urls')),
-    path('download_csv/<str:csv_file>', views.send_file, name='send_file'),
+    url(r’download_csv/<str:csv_file>’, crcfinderviews.send_file, name=‘send_file’),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

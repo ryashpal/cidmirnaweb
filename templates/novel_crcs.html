@@ -20,7 +20,8 @@
 };
 var gene_search = getUrlParameter('gene_search');
 var motif_search = getUrlParameter('motif_search');
-var url = '&gene_search='+ gene_search + '&motif_search=' + motif_search;
+var cut_off = getUrlParameter('cut_off');
+var url = '&gene_search='+ gene_search + '&motif_search=' + motif_search +'&cut_off=' + cut_off;
 
 function first_update() {
   var num_id = document.getElementById('first_id').href;
@@ -105,6 +106,9 @@ function next_update() {
     <span style = 'font-size:20px'>Enter motif names:</span> {{ data.motif_search }}
     <br>
     <br>
+    <span style = 'font-size:20px'>Select CRC score cut-off:</span> {{ data.cut_off }}
+    <br>
+    <br>
     <input  type="submit" value="Search CRCs">
     </form>
     <br>
@@ -120,6 +124,22 @@ function next_update() {
       {{ full_data.motif }}
       {% endif %}
     <br>
+    <br>
+    {% if full_data.crc_cutoff != '' %}
+    CRC score cut-off :
+      {{ full_data.crc_cutoff}}
+      {% endif %}
+    <br>
+
+    <div style = "margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 130px;
+    margin-left: 59%;
+    height: 28px;
+    padding-top: 3px;">
+      <a href="download_csv/{{ file_name }}">Download CSV</a></li>
+    </div>
 
     <div style="display:flex; flex-direction:row; justify-content: space-around;">
       <div style="margin-top: 10px;font-size: 15px;">
@@ -196,4 +216,3 @@ function next_update() {
 </body>
 </html>
 {% endblock %}
-

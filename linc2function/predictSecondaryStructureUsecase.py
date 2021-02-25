@@ -15,6 +15,7 @@ def predict(fasta_id, uid):
     try:
         if not os.path.isfile(ctFilePath):
             p = subprocess.Popen([venvPath, spotrnaPath, '--inputs', inputPath, '--outputs', outputPath], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+            logging.info('p: ' + str(p))
         if not os.path.isfile(radiateImagePath):
             subprocess.Popen(["java", "-cp", settings.SPOTRNA_ROOT + "/utils/VARNAv3-93.jar", "fr.orsay.lri.varna.applications.VARNAcmd", '-i', ctFilePath, '-o', radiateImagePath, '-algorithm', 'radiate', '-resolution', '8.0', '-bpStyle', 'lw'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE, cwd=settings.SPOTRNA_ROOT).communicate()
         if not os.path.isfile(lineImagePath):

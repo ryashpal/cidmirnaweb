@@ -43,7 +43,7 @@ DATABASES = {
 LINC2FUNCTION_ROOT = '/home/cidmirna/linc2functionpipeline/identification'
 
 # SPOT-RNA 
-SPOTRNA_ROOT = '/home/cidmirna/SPOT-RNA'
+SPOTRNA_ROOT = '/home/cidmirna/SPOT-RNA-MODIFIED/SPOT-RNA'
 
 # RIblast
 RIBLAST_ROOT = '/home/cidmirna/RIblast'

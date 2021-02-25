@@ -6,7 +6,7 @@ from subprocess import Popen
 
 def predict(fasta_id, uid):
     venvPath = os.path.join(settings.SPOTRNA_ROOT, '.venv/bin/python')
-    spotrnaPath = os.path.join(settings.SPOTRNA_ROOT, 'SPOT-RNA.py')
+    spotrnaPath = os.path.join(settings.SPOTRNA_ROOT, 'SPOT-RNA-FRAGMENTED.py')
     outputPath = os.path.join(settings.BASE_DIR, 'static', 'tmp', uid)
     inputPath = os.path.join(outputPath, uid + '.fasta')
     ctFilePath = os.path.join(outputPath, fasta_id + '.ct')

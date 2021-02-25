@@ -10,7 +10,7 @@ from random import randint
 
 data_file = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
 data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
-temp_csv_folder = '/home/cidmirna/cidmirnaweb/crc_finder/temp_csv_files'
+temp_csv_folder = '/home/cidmirna/cidmirnaweb/crc_finder/temp_csv_files/'
 
 # data_file = './all_genes_CRCs.csv'
 # data_file2 = './predicted_CRCs.csv'

@@ -6,3 +6,4 @@ static/*
 .venv/*
 rna.ps
 .vscode/*
+crc_finder/temp_csv_files/*

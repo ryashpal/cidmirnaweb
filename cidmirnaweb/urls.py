@@ -23,6 +23,7 @@ from analyses import views as analysesviews
 from cidmirnaweb import views as cidmirnawebviews
 from linc2function import views as linc2functionviews
 from crc_finder import views as crcfinderviews
+#from predict_crc import views as predictcrcviews
 
 urlpatterns = [
     url(r'^theadmin/', admin.site.urls),
@@ -38,6 +39,7 @@ urlpatterns = [
     url(r'^download$', cidmirnawebviews.download, name='download'),
     url(r'^about$', cidmirnawebviews.about, name='about'),
     url(r'^submitted$', analysesviews.analysis_submitted, name='success'),
+#    url('predict_crc/', predictcrcviwes.file_upload),
 
     url(r'^people$', views.people, name='people'),
     url(r'^research$', views.research, name='research'),

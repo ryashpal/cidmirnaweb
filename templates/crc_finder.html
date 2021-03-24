@@ -1,0 +1,122 @@
+{% extends "base12.html" %}
+
+{% block content %}
+{% load static %}
+<script>
+
+</script>
+<html>
+
+<head>
+  <title>
+    CRC Predictions
+  </title>
+  <style media="screen">
+    table {
+      margin-top: 10px;
+      min-width: 75%;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    th,
+    td {
+      padding: 7px;
+    }
+
+    .pagination_class {
+      font-size: 13px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div style='min-height: 550px;'>
+    <center>
+      <div style='color: white;
+  background-color: brown;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid black;
+  height: 80px;'>
+        <h1> Predict Co-Regulatory Clusters (CRCs)</h1>
+      </div>
+      <br>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h4>
+            Predict for CRCs given a set of motif instances uploaded as a BED file.
+          </h4>
+        <h3>
+        Select input BED file with motif instances
+      </h3>
+        <br>
+        <input type="file" name="myfile">
+        <br>
+        <div style="margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 130px;
+    margin-left: 59%;
+    height: 28px;
+    padding-top: 3px;">
+        <a href="/download_csv/{{ file_name }}">Download CSV</a></li>
+      </div>
+        OR paste here..
+        <br>
+        <br>
+        <input type = "text" style = "width: 1000px; height: 300px;">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+
+      </form>
+
+      {% if uploaded_file_url %}
+      <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+      {% endif %}
+
+      
+
+      {% if full_data.result|length > 0%}
+      <table>
+        <thead>
+          <tr>
+            <th> Nearest gene </th>
+            <th> Co-regulatory motifs </th>
+            <th> CRC_score </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in full_data.result %}
+          <tr>
+            <td>{{ row.gene_name }}</td>
+            <td>{{ row.cluster_motifs}} </td>
+            <td>{{ row.CRC_score}} </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      <br>
+
+      <hr>
+      <footer>
+        <p>If you are using this database, Please cite as,
+        </p>
+        <blockquote style="font-size: 14px; text-align: left;">
+          <p>
+            Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of
+            transcription factor motifs<a> (Unpublished)</a></p>
+        </blockquote>
+      </footer>
+</body>
+
+</html>
+{% endblock %}

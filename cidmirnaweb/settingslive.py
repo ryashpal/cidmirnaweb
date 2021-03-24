@@ -2,7 +2,7 @@ from .settingscommon import *
 
 import os
 
-ALLOWED_HOSTS = ['bioinformaticslab.erc.monash.edu', '159.65.143.107']
+ALLOWED_HOSTS = ['bioinformaticslab.erc.monash.edu', '159.65.143.107', '127.0.0.1']
 
 EXTERNAL_BASE_URL = 'http://%s' % ALLOWED_HOSTS[0]
 
@@ -26,7 +26,7 @@ EMAIL_AVAILABLE = True
 EMAIL_HOST = 'localhost'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 

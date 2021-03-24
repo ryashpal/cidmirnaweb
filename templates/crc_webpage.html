@@ -6,48 +6,49 @@
 <script>
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
 
     for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+      sParameterName = sURLVariables[i].split('=');
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-        }
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
     }
-};
-var gene_search = getUrlParameter('gene_search');
-var motif_search = getUrlParameter('motif_search');
-var cut_off = getUrlParameter('cut_off');
-var url = '&gene_search='+ gene_search + '&motif_search=' + motif_search +'&cut_off=' + cut_off;
+  };
+  var gene_search = getUrlParameter('gene_search');
+  var motif_search = getUrlParameter('motif_search');
+  var cut_off = getUrlParameter('cut_off');
+  var ppi = getUrlParameter('ppi');
+  var url = '&gene_search=' + gene_search + '&motif_search=' + motif_search + '&cut_off=' + cut_off + '&ppi=' + ppi;
 
-function first_update() {
-  var num_id = document.getElementById('first_id').href;
+  function first_update() {
+    var num_id = document.getElementById('first_id').href;
 
-  num_id = num_id + url
-  document.getElementById('first_id').href = num_id
-}
+    num_id = num_id + url
+    document.getElementById('first_id').href = num_id
+  }
 
-function prev_update() {
-  var prev_id = document.getElementById('prev_id').href;
-  prev_id = prev_id + url
-  document.getElementById('prev_id').href = prev_id
-}
+  function prev_update() {
+    var prev_id = document.getElementById('prev_id').href;
+    prev_id = prev_id + url
+    document.getElementById('prev_id').href = prev_id
+  }
 
-function last_update() {
-  var num_id = document.getElementById('last_id').href;
+  function last_update() {
+    var num_id = document.getElementById('last_id').href;
 
-  num_id = num_id + url
-  document.getElementById('last_id').href = num_id
-}
+    num_id = num_id + url
+    document.getElementById('last_id').href = num_id
+  }
 
-function next_update() {
-  var next_id = document.getElementById('next_id').href;
-  next_id = next_id + url
-  document.getElementById('next_id').href = next_id
-}
+  function next_update() {
+    var next_id = document.getElementById('next_id').href;
+    next_id = next_id + url
+    document.getElementById('next_id').href = next_id
+  }
 
 // var slider = document.getElementById("cut_off_range");
 // var output = document.getElementById("cut_off_display");
@@ -61,170 +62,191 @@ function next_update() {
 
 
 <html>
-<head>
-<title>
-  CRC Finder
-</title>
 
-<style media="screen">
+<head>
+  <title>
+    CRC Finder
+  </title>
+
+  <style media="screen">
     table {
-      margin-top : 10px;
-      min-width : 75%;
+      margin-top: 10px;
+      min-width: 75%;
     }
-    table, th, td {
-      border : 1px solid black;
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
     }
-    th, td {
-      padding : 7px;
+
+    th,
+    td {
+      padding: 7px;
     }
+
     .pagination_class {
-      font-size : 13px;
-      font-weight : bold;
+      font-size: 13px;
+      font-weight: bold;
     }
-</style>
+  </style>
 
 </head>
+
 <body>
-    <div style = 'min-height: 550px;'>
-      <center>
-        <div style = 'color: white;
+  <div style='min-height: 550px;'>
+    <center>
+      <div style='color: white;
     background-color: brown;
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid black;
     height: 80px;'>
-        <h1> CRC Finder and Database</h1>
+        <h1> CRC Database</h1>
+      </div>
+      <br>
+      <h4 style='text-align: left;'>
+        DNA motifs bound by transcription factors (TFs) work together to co-regulate gene expression.
+        We call them Co-Regulatory Clusters (CRCs). We annotated CRCs from known ChIP-Seq datasets from 231 human TFs by
+        using a Machine Learning approach.
+      </h4>
+      <br>
+
+      <label style='font-size:20px'>Species:</label>
+      <select name="species" id="species">
+        <option value="homo_sapien">hg.38</option>
+      </select>
+
+      <form id="form_submit" action="" method="GET">
+        {% csrf_token %}
+        <br>
+        <br>
+        <div style = 'display: flex;display: flex;
+        flex-direction: row;font-size:20px;
+        justify-content: space-around;'>
+        <div >Enter gene names: {{ data.gene_search}} </div> 
+        <div>Enter motif names: {{ data.motif_search }} </div> 
         </div>
         <br>
-        <h4 style='text-align: left;'>
-          DNA motifs bound by transcription factors (TFs) work together to co-regulate gene expression.
-          We call them Co-Regulatory Clusters (CRCs). We annotated CRCs from known ChIP-Seq datasets from 231 human TFs by using a Machine Learning approach.
-          </h4>
-          <br>
-
-  <label style = 'font-size:20px'>Species:</label>
-  <select name="species" id="species">
-    <option value="homo_sapien">hg.38</option>
-  </select>
-
-    <form id="form_submit" action="" method="GET">
-    {% csrf_token %}
-    <br>
-    <br>
-    <span style = 'font-size:20px'>Enter gene names:</span> {{ data.gene_search}}
-    <br>
-    <br>
-    <span style = 'font-size:20px'>Enter motif names:</span> {{ data.motif_search }}
-    <br>
-    <br>
-    <span style = 'font-size:20px'>Select CRC score cut-off:</span> {{ data.cut_off }}
-    <!-- <p>Value: <span id="cut_off_display"></span></p> -->
-    <br>
-    <br>
-    <input type="submit" value="Search CRCs">
-    </form>
-    <br>
-    {% if full_data %}
-    {% if full_data.gene != '' %}
-    Searched gene name :
+        <br>
+        <div style = 'display: flex;display: flex;
+        flex-direction: row;font-size:20px;
+        justify-content: space-around;'>
+        <div >PPI-score selection: {{ data.ppi }}</div> 
+        <div>Select CRC score cut-off: {{ data.cut_off }} </div>
+        </div>
+        <!-- <p>Value: <span id="cut_off_display"></span></p> -->
+        <br>
+        <br>
+        <input type="submit" value="Search CRCs">
+      </form>
+      <br>
+      {% if full_data %}
+      {% if full_data.gene != '' %}
+      Searched gene name :
       {{ full_data.gene }}
       {% endif %}
-    <br>
-    <br>
-    {% if full_data.motif != '' %}
-    Searched motif :
+      <br>
+      <br>
+      {% if full_data.motif != '' %}
+      Searched motif :
       {{ full_data.motif }}
       {% endif %}
-    <br>
-    <br>
-    {% if full_data.crc_cutoff != '' %}
-    CRC score cut-off :
+      <br>
+      <br>
+      {% if full_data.crc_cutoff != '' %}
+      CRC score cut-off :
       {{ full_data.crc_cutoff}}
       {% endif %}
-    <br>
+      <br>
 
-    <div style = "margin-bottom: 5px;
+      <div style="margin-bottom: 5px;
     border: 1px solid black;
     border-radius: 5px;
     width: 130px;
     margin-left: 59%;
     height: 28px;
     padding-top: 3px;">
-      <a href="download_csv/{{ file_name }}">Download CSV</a></li>
-    </div>
+        <a href="download_csv/{{ file_name }}">Download CSV</a></li>
+      </div>
 
-    <div style="display:flex; flex-direction:row; justify-content: space-around;">
-      <div style="margin-top: 10px;font-size: 15px;">
-        <span class="current">
-          Page {{ full_data.result.number }} of {{ full_data.result.paginator.num_pages }}
-        </span>
+      <div style="display:flex; flex-direction:row; justify-content: space-around;">
+        <div style="margin-top: 10px;font-size: 15px;">
+          <span class="current">
+            Page {{ full_data.result.number }} of {{ full_data.result.paginator.num_pages }}
+          </span>
         </div>
         <div>
-        {% if full_data.result.has_other_pages %}
-      <ul class="pagination" style = "display: table; align-items: center; margin: auto;border-radius: 4px;">
-        {% if full_data.result %}
-          <li  onclick="first_update()" class = 'pagination_class'><a id="first_id" href="?page=1">First Page </a></li>
-        {% else %}
-          <li class="disabled pagination_class"><span >First Page</span></li>
-        {% endif %}
+          {% if full_data.result.has_other_pages %}
+          <ul class="pagination" style="display: table; align-items: center; margin: auto;border-radius: 4px;">
+            {% if full_data.result %}
+            <li onclick="first_update()" class='pagination_class'><a id="first_id" href="?page=1">First Page </a></li>
+            {% else %}
+            <li class="disabled pagination_class"><span>First Page</span></li>
+            {% endif %}
 
-        {% if full_data.result.has_previous %}
-          <li onclick="prev_update()" class = "pagination_class"><a id="prev_id" href="?page={{ full_data.result.previous_page_number }}">Previous Page</a></li>
-        {% else %}
-          <li class="disabled pagination_class"><span>Previous Page</span></li>
-        {% endif %}
+            {% if full_data.result.has_previous %}
+            <li onclick="prev_update()" class="pagination_class"><a id="prev_id"
+                href="?page={{ full_data.result.previous_page_number }}">Previous Page</a></li>
+            {% else %}
+            <li class="disabled pagination_class"><span>Previous Page</span></li>
+            {% endif %}
 
-        {% if full_data.result.has_next %}
-          <li  onclick="next_update()" class = 'pagination_class'><a id="next_id" href="?page={{ full_data.result.next_page_number }}">Next Page</a></li>
-        {% else %}
-          <li class="disabled pagination_class"><span >Next Page</span></li>
-        {% endif %}
+            {% if full_data.result.has_next %}
+            <li onclick="next_update()" class='pagination_class'><a id="next_id"
+                href="?page={{ full_data.result.next_page_number }}">Next Page</a></li>
+            {% else %}
+            <li class="disabled pagination_class"><span>Next Page</span></li>
+            {% endif %}
 
-        {% if full_data.result.paginator.num_pages %}
-          <li  onclick="last_update()" class = 'pagination_class'><a id="last_id" href="?page={{ full_data.result.paginator.num_pages }}">Last Page</a></li>
-        {% else %}
-          <li class="disabled pagination_class"><span >Last Page</span></li>
-        {% endif %}
-      </ul>
-    {% endif %}
-    </div>
-    </div>
-    <!-- {{ full_data.result }} -->
-    {% if full_data.result|length > 0%}
-    <table>
-      <thead>
-        <tr>
-          <th> Nearest gene </th>
+            {% if full_data.result.paginator.num_pages %}
+            <li onclick="last_update()" class='pagination_class'><a id="last_id"
+                href="?page={{ full_data.result.paginator.num_pages }}">Last Page</a></li>
+            {% else %}
+            <li class="disabled pagination_class"><span>Last Page</span></li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      <!-- {{ full_data.result }} -->
+      {% if full_data.result|length > 0%}
+      <table>
+        <thead>
+          <tr>
+            <th> Nearest gene </th>
             <th> Co-regulatory motifs </th>
             <th> CRC_score </th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           {% for row in full_data.result %}
           <tr>
             <td>{{ row.gene_name }}</td>
             <td>{{ row.cluster_motifs}} </td>
             <td>{{ row.CRC_score}} </td>
-            </tr>
-            {% endfor %}
-      {% else %}
-      <h1 style = 'color:red'>NOT FOUND!</h1>
-      {% endif %}
-      </tbody>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <h1 style='color:red'>NOT FOUND!</h1>
+          {% endif %}
+        </tbody>
       </table>
       {% endif %}
     </center>
-    </div>
-<br>
-<hr>
-<footer>
-<p>If you are using this database, Please cite as,
-  </p>
-<blockquote style="font-size: 14px; text-align: left;">
-  <p>
-    Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of transcription factor motifs<a> (Unpublished)</a></p>
+  </div>
+  <br>
+  <hr>
+  <footer>
+    <p>If you are using this database, Please cite as,
+    </p>
+    <blockquote style="font-size: 14px; text-align: left;">
+      <p>
+        Tarun Bonu, Levin Kuhlmann, Sonika Tyagi, A curated database of human co-regulatory clusters (CRC) of
+        transcription factor motifs<a> (Unpublished)</a></p>
     </blockquote>
-    </footer>
+  </footer>
 </body>
+
 </html>
 {% endblock %}

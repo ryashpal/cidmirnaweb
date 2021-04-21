@@ -92,7 +92,7 @@ def get_crc(request):
             result_df = result_df[['gene_name','cluster_motifs','CRC_score']]
             result_df = result_df[result_df['CRC_score'] >= float(crc_cutoff)]
             result_df = result_df.sort_values(by='CRC_score', ascending=False)
-            csvDownload_filename = random_filename()
+            csvDownload_filename = random_filename('csv')
             filename = csvDownload_filename.split('/')[-1]
             result_df.to_csv(csvDownload_filename, index = False)
             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
@@ -158,14 +158,17 @@ from random import randint
 
 temp_csv_folder = settings.TEMP_CSV_FILE
 
-def random_filename():
+def random_filename(type):
     letters = 'abcdefghijklmnopqrstuvwxyz'
     filename_len = randint(3,10)
     filename = temp_csv_folder
     for ix in range(filename_len):
         index = randint(0,25)
         filename = filename + letters[index]
-    filename = filename + '.csv'
+    if type == 'csv':
+        filename = filename + '.csv'
+    else:
+        filename = filename + '.bed'
     return filename
 
 # def run_pipeline(input_file):
@@ -223,12 +226,16 @@ def file_upload(request):
                 myfile = request.FILES['myfile']
                 fs = FileSystemStorage()
                 filename = fs.save(myfile.name, myfile)
-                uploaded_file_url = fs.url(filename)
-                uploaded_file_url = '.' + uploaded_file_url
+                src_filename = settings.BASE_DIR + fs.url(filename)
+                uploaded_file_url = settings.BASE_DIR + settings.TEMP_CSV_FILE.replace('.', '') + myfile.name
+                
+                os.rename(src_filename, uploaded_file_url)
                 print(uploaded_file_url)
         except:
+            print('In exception now')
             bedtext = request.POST.get("bedtext")
-            uploaded_file_url = random_filename()
+            uploaded_file_url = settings.BASE_DIR + random_filename('bed')
+            uploaded_file_url = uploaded_file_url.replace('./', '/')
             with open(uploaded_file_url, 'w') as fp:
                 fp.writelines(bedtext)
             print(uploaded_file_url)
@@ -242,14 +249,20 @@ def file_upload(request):
         # Running pipeline
         # output_filepath, result_df = run_pipeline(uploaded_file_url)
 
+        output_file_csv = settings.BASE_DIR + random_filename('csv')
+        output_file_csv = output_file_csv.replace('./', '/')
+        output_file_bed = output_file_csv.replace('.csv', '.bed')
+
         python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + \
-            '/Users/tarunbonu/Tarun/sem_4/minor_thesis/cidmirnaweb/crc_finder/temp_csv_files/input_motifs.bed' + \
-            '-o /Users/tarunbonu/Tarun/sem_4/minor_thesis/cidmirnaweb/crc_finder/temp_csv_files/output.bed'
+            uploaded_file_url + \
+            ' -b ' + output_file_bed + ' -c ' + output_file_csv
         
+        print('Running pipeline..')
+        print(python_call)
         os.system(python_call)
         os.remove(uploaded_file_url)
-        result_df = pd.read_csv('/Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/predicted_CRCs.csv')
-        filename = 'predicted_CRCs.csv'
+        result_df = pd.read_csv(output_file_csv)
+        filename = output_file_csv.split('/')[-1]
 
         result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
         result_records = json.loads(result_records)
@@ -276,20 +289,21 @@ def file_upload(request):
 
 def send_file(request, csv_file):
 
-    print('HIIII')
     import os, tempfile, zipfile
     from wsgiref.util import FileWrapper
     from django.conf import settings
     import mimetypes
-
-    csv_file = './predict_crc/' + csv_file
-    print(csv_file)
-    download_name = "example.csv"
+    
+    csv_file = settings.TEMP_CSV_FILE + csv_file
+    print('Downloading file.. ', csv_file)
     wrapper      = FileWrapper(open(csv_file))
     content_type = mimetypes.guess_type(csv_file)[0]
     response     = HttpResponse(wrapper,content_type=content_type)
     response['Content-Length']      = os.path.getsize(csv_file)    
-    response['Content-Disposition'] = 'attachment; filename=%s' % ("CRCs.csv")
+    if csv_file.endswith('.csv'):
+        response['Content-Disposition'] = 'attachment; filename=%s' % ("CRCs.csv")
+    else:
+        response['Content-Disposition'] = 'attachment; filename=%s' % ("CRCs.bed")
     # os.remove(csv_file)
     return response
 

@@ -50,6 +50,6 @@ RIBLAST_ROOT = '/home/cidmirna/RIblast'
 RIBLAST_DB = '/home/cidmirna/RIblast/mirbase.db/mirbase.db'
 
 # CRC Finder
-data_file = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
-data_file2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
-temp_csv_folder = '/home/cidmirna/cidmirnaweb/crc_finder/temp_csv_files/'
+DATA_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
+DATA_FILE2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
+TEMP_CSV_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/temp_csv_files/'

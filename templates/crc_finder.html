@@ -4,6 +4,12 @@
 {% load static %}
 <script>
 
+{% if reject %}
+
+alert('Invalid file format. Please upload again!')
+
+{% endif %}
+
 </script>
 <html>
 
@@ -51,7 +57,9 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <h4>
-            Predict for CRCs given a set of motif instances uploaded as a BED file.
+          Obtain predicted CRCs given a set of motif instances uploaded in BED format. 
+          The models are trained on motifs obtained from ChIP-seq experiments.
+
           </h4>
         <h3>
         Select input BED file with motif instances
@@ -71,7 +79,26 @@
         OR paste here..
         <br>
         <br>
-        <input type = "text" style = "width: 1000px; height: 300px;">
+        <textarea name = "bedtext" style = "width: 1000px; height: 300px;"
+        placeholder = "Ex:
+        chr19	10285537	10285549	PBX2_GCTGGCAGTCAC	0	+
+        chr19	10285567	10285581	SPI1_GGAAACAGGATGTG	0	+
+        chr19	10286951	10286961	CEBPD_GTTTCGCAGT	0	+
+        chr19	10286949	10286959	SOX6_TGCTTATCTC	0	+
+        chr19	11766928	11766939	SP1_GTGACGACTTC	0	+
+        chr19	11766966	11766977	GFI1B_AAAGCGCAGCA	0	+
+        chr19	11766958	11766973	NFYB_AACGCAGCCAATGGG	0	+
+        chr19	11766994	11767004	TBX21_AAAGTGAGAA	0	+
+        chr17	11997166	11997177	E2F4_AAGTCCCGCCC	0	-
+        chr17	11997167	11997181	EBF1_AACCCCCGGGGCAT	0	-
+        chr17	11997346	11997361	BACH1_AACCCGGCTCCGCAT	0	-
+        chr17	11997362	11997375	POU2F2_AAATGCAAAGCAG	0	-
+        chr17	11997349	11997363	JUN_AAAATGACACAAC	0	-
+        chr17	11997456	11997469	HSF1_AACCAGAAGGTTC	0	-
+        chr17	11997458	11997468	RBPJ_AAACGGAAAT	0	-
+        chr17	11997484	11997495	TFAP2C_TGCCCCAGGGGC	0	-
+        chr17	11997457	11997467	ETV1_AACATCCTGC	0	-
+        "></textarea>
         <br>
         <br>
         <button type="submit">Submit</button>

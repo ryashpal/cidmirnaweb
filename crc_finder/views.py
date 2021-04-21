@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TextForm
 from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 # Create your views here.
 import pandas as pd
 import json
+import os
 from random import randint
 
 print('Settings : ', settings)
@@ -126,7 +128,8 @@ def send_file(request, csv_file):
   from django.conf import settings
   import mimetypes
 
-  csv_file = temp_csv_folder + csv_file
+#   csv_file = temp_csv_folder + csv_file
+  csv_file = '/Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/predicted_CRCs.csv'
   download_name ="example.csv"
   wrapper      = FileWrapper(open(csv_file))
   content_type = mimetypes.guess_type(csv_file)[0]
@@ -183,20 +186,69 @@ def random_filename():
 
 #     return output_filepath, putative_CRC
 
+def file_sanity_check(bed_file):
+
+    with open(bed_file, 'r') as fp:
+        all_lines = fp.readlines()
+
+    for line in all_lines:
+        line = line.strip('\n')
+        elements = line.split('\t')
+        if len(elements) != 6:
+            print('1')
+            return 0
+        
+        if not elements[0].startswith('chr'):
+            print('2')
+            return 0
+
+        try:
+            elements[1] = int(elements[1])
+            elements[2] = int(elements[2])
+            elements[4] = int(elements[4])
+        except:
+            return 0
+
+        if not elements[5] in ['+', '-']:
+            print('5', elements[5])
+            return 0
+
+    return 1
+
 
 def file_upload(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        uploaded_file_url = '.' + uploaded_file_url
-        print(uploaded_file_url)
+    if request.method == 'POST':
+        try:
+            if request.FILES['myfile']:
+                myfile = request.FILES['myfile']
+                fs = FileSystemStorage()
+                filename = fs.save(myfile.name, myfile)
+                uploaded_file_url = fs.url(filename)
+                uploaded_file_url = '.' + uploaded_file_url
+                print(uploaded_file_url)
+        except:
+            bedtext = request.POST.get("bedtext")
+            uploaded_file_url = random_filename()
+            with open(uploaded_file_url, 'w') as fp:
+                fp.writelines(bedtext)
+            print(uploaded_file_url)
+        
+
+    if not request.method == 'GET':
+        if not file_sanity_check(uploaded_file_url):
+            print('Reject this file. Invalid file format')
+            return render(request, 'crc_finder.html', {'reject' : 'reject'})
 
         # Running pipeline
         # output_filepath, result_df = run_pipeline(uploaded_file_url)
+
+        python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + \
+            '/Users/tarunbonu/Tarun/sem_4/minor_thesis/cidmirnaweb/crc_finder/temp_csv_files/input_motifs.bed' + \
+            '-o /Users/tarunbonu/Tarun/sem_4/minor_thesis/cidmirnaweb/crc_finder/temp_csv_files/output.bed'
+        
+        os.system(python_call)
         os.remove(uploaded_file_url)
-        result_df = pd.read_csv('./predict_crc/predicted_CRCs.csv')
+        result_df = pd.read_csv('/Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/predicted_CRCs.csv')
         filename = 'predicted_CRCs.csv'
 
         result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
@@ -241,64 +293,3 @@ def send_file(request, csv_file):
     # os.remove(csv_file)
     return response
 
-
-# def get_novel_crc(request):
-
-#     if request.method == 'GET':
-#         form = TextForm(request.GET)
-#         if form.is_valid():
-#             motif_data = form.cleaned_data['motif_search']
-#             gene_data = form.cleaned_data['gene_search']
-#             crc_cutoff = form.cleaned_data['cut_off']
-
-#             if motif_data == 'undefined':
-#                 motif_data = ''
-#                 gene_data = ''
-#                 crc_cutoff = '0.8'
-#             # page = form.cleaned_data['page_number']
-
-#             if crc_cutoff == '':
-#                 crc_cutoff = 0.8
-
-#             gene_names = gene_data.lower().split(',')
-#             all_gene_names = [motif.strip(' ') for motif in gene_names]
-#             all_motifs = motif_data.lower().split(',')
-#             all_motifs = [motif.strip(' ') for motif in all_motifs]
-#             # print('Gene', gene_name)
-#             # print('Motifs', all_motifs)
-#             result_df = CRC_search(all_gene_names, all_motifs, data_df2)
-#             result_df = result_df.round({"CRC_score":2})
-#             result_df = result_df[['gene_name','cluster_motifs','CRC_score']]
-#             result_df = result_df[result_df['CRC_score'] >= float(crc_cutoff)]
-#             result_df = result_df.sort_values(by='CRC_score', ascending=False)
-#             csvDownload_filename = random_filename()
-#             filename = csvDownload_filename.split('/')[-1]
-#             result_df.to_csv(csvDownload_filename, index = False)
-#             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
-#             result_records = json.loads(result_records)
-
-#             # Pagination
-            
-#             page = request.GET.get('page', 1)
-#             # print(page)
-            
-#             paginator = Paginator(result_records, 50)
-#             try:
-#                 result_records = paginator.page(page)
-#             except PageNotAnInteger:
-#                 result_records = paginator.page(1)
-#             except EmptyPage:
-#                 result_records = paginator.page(paginator.num_pages)
-
-#             # print(result_records)
-
-#             full_data = {'gene' : gene_data, 'motif': motif_data, 'result': result_records, 'crc_cutoff': crc_cutoff}
-
-#             form = TextForm()
-#             return render(request, 'novel_crcs.html', {'full_data': full_data,'data':form,'file_name' : filename})
-
-#     form = TextForm()
-#     # inp_value = request.GET.get('results', 'This is a default value')
-
-#     # response = {'inp_value': inp_value}
-#     return render(request, 'novel_crcs.html', {'data': form})

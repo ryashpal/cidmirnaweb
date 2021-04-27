@@ -220,6 +220,7 @@ def file_sanity_check(bed_file):
 
 
 def file_upload(request):
+    print('Inside the file upload function..')
     if request.method == 'POST':
         try:
             if request.FILES['myfile']:
@@ -228,7 +229,8 @@ def file_upload(request):
                 filename = fs.save(myfile.name, myfile)
                 src_filename = settings.BASE_DIR + fs.url(filename)
                 uploaded_file_url = settings.BASE_DIR + settings.TEMP_CSV_FILE.replace('.', '') + myfile.name
-                
+                print('File uploaded')
+                # uploaded_file_url = '/' + uploaded_file_url.split('/home/cidmirna/cidmirnaweb/')[1]
                 os.rename(src_filename, uploaded_file_url)
                 print(uploaded_file_url)
         except:
@@ -239,7 +241,6 @@ def file_upload(request):
             with open(uploaded_file_url, 'w') as fp:
                 fp.writelines(bedtext)
             print(uploaded_file_url)
-        
 
     if not request.method == 'GET':
         if not file_sanity_check(uploaded_file_url):
@@ -253,10 +254,10 @@ def file_upload(request):
         output_file_csv = output_file_csv.replace('./', '/')
         output_file_bed = output_file_csv.replace('.csv', '.bed')
 
-        python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + \
-            uploaded_file_url + \
-            ' -b ' + output_file_bed + ' -c ' + output_file_csv
-        
+        python_call = 'python3 /tsonika-data/crc_finder/crc_finder.py -m ' + uploaded_file_url + ' -b ' + output_file_bed + ' -c ' + output_file_csv
+#        python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + \
+#            uploaded_file_url + \
+#            ' -b ' + output_file_bed + ' -c ' + output_file_csv
         print('Running pipeline..')
         print(python_call)
         os.system(python_call)

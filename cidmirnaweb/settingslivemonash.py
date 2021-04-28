@@ -52,4 +52,4 @@ RIBLAST_DB = '/home/cidmirna/RIblast/mirbase.db/mirbase.db'
 # CRC Finder
 DATA_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
 DATA_FILE2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
-TEMP_CSV_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/temp_csv_files/'
+TEMP_CSV_FILE = '/crc_finder/temp_csv_files/'

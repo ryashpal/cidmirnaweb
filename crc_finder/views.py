@@ -218,29 +218,37 @@ def file_sanity_check(bed_file):
 
     return 1
 
+def save_move_uploaded_file(request):
+
+    myfile = request.FILES['myfile']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    src_filename = settings.BASE_DIR + fs.url(filename)
+    uploaded_file_url = settings.BASE_DIR + settings.TEMP_CSV_FILE.replace('.', '') + myfile.name
+    print('File uploaded')
+    # uploaded_file_url = '/' + uploaded_file_url.split('/home/cidmirna/cidmirnaweb/')[1]
+    os.rename(src_filename, uploaded_file_url)
+
+    return uploaded_file_url
+
 
 def file_upload(request):
     print('Inside the file upload function..')
     if request.method == 'POST':
+
         try:
             if request.FILES['myfile']:
-                myfile = request.FILES['myfile']
-                fs = FileSystemStorage()
-                filename = fs.save(myfile.name, myfile)
-                src_filename = settings.BASE_DIR + fs.url(filename)
-                uploaded_file_url = settings.BASE_DIR + settings.TEMP_CSV_FILE.replace('.', '') + myfile.name
-                print('File uploaded')
-                # uploaded_file_url = '/' + uploaded_file_url.split('/home/cidmirna/cidmirnaweb/')[1]
-                os.rename(src_filename, uploaded_file_url)
+                uploaded_file_url = save_move_uploaded_file(request)
                 print(uploaded_file_url)
+
         except:
-            print('In exception now')
-            bedtext = request.POST.get("bedtext")
-            uploaded_file_url = settings.BASE_DIR + random_filename('bed')
-            uploaded_file_url = uploaded_file_url.replace('./', '/')
-            with open(uploaded_file_url, 'w') as fp:
-                fp.writelines(bedtext)
-            print(uploaded_file_url)
+                print('In except part now')
+                bedtext = request.POST.get("bedtext")
+                uploaded_file_url = settings.BASE_DIR + random_filename('bed')
+                uploaded_file_url = uploaded_file_url.replace('./', '/')
+                with open(uploaded_file_url, 'w') as fp:
+                    fp.writelines(bedtext)
+                print(uploaded_file_url)
 
     if not request.method == 'GET':
         if not file_sanity_check(uploaded_file_url):

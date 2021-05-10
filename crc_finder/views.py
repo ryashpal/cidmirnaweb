@@ -262,14 +262,12 @@ def file_upload(request):
         output_file_csv = output_file_csv.replace('./', '/')
         output_file_bed = output_file_csv.replace('.csv', '.bed')
 
-        python_call = 'python3 /tsonika-data/crc_finder/crc_finder.py -m ' + uploaded_file_url + ' -b ' + output_file_bed + ' -c ' + output_file_csv
-#        python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + \
-#            uploaded_file_url + \
-#            ' -b ' + output_file_bed + ' -c ' + output_file_csv
+        python_call = '/tsonika-data/crc_finder/.virtual_env/bin/python3 /tsonika-data/crc_finder/crc_finder.py -m ' + uploaded_file_url + ' -b ' + output_file_bed + ' -c ' + output_file_csv
+        # python_call = 'python3 /Users/tarunbonu/Tarun/sem_4/minor_thesis/crc_finder_final/crc_finder.py -m ' + uploaded_file_url + ' -b ' + output_file_bed + ' -c ' + output_file_csv
         print('Running pipeline..')
         print(python_call)
         os.system(python_call)
-        os.remove(uploaded_file_url)
+        # os.remove(uploaded_file_url)
         result_df = pd.read_csv(output_file_csv)
         filename = output_file_csv.split('/')[-1]
 

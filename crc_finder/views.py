@@ -55,7 +55,7 @@ def random_filename():
     for ix in range(filename_len):
         index = randint(0,25)
         filename = filename + letters[index]
-    filename = filename + '.csv'
+    filename = '.' + filename + '.csv'
     return filename
 
 

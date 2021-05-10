@@ -270,7 +270,7 @@ def file_upload(request):
         print('Running pipeline..')
         print(python_call)
         out = os.system(python_call)
-        logging.info('CRC FINDER --- Python call output : ' + out)
+        logging.info('CRC FINDER --- Python call output : ' + str(out))
         # os.remove(uploaded_file_url)
         result_df = pd.read_csv(output_file_csv)
         filename = output_file_csv.split('/')[-1]

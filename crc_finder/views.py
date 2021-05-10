@@ -95,6 +95,7 @@ def get_crc(request):
             result_df = result_df.sort_values(by='CRC_score', ascending=False)
             csvDownload_filename = random_filename('csv')
             filename = csvDownload_filename.split('/')[-1]
+            logging.info('CRC FINDER --- CRC Database download filename : ' + filename)
             result_df.to_csv(csvDownload_filename, index = False)
             result_records = result_df[['gene_name', 'cluster_motifs', 'CRC_score']].reset_index(drop = True).to_json(orient = 'records')
             result_records = json.loads(result_records)

@@ -306,7 +306,9 @@ def send_file(request, csv_file):
     import mimetypes
     
     csv_file = settings.TEMP_CSV_FILE + csv_file
+    csv_file = '.' + csv_file
     print('Downloading file.. ', csv_file)
+    logging.info('CRC FINDER --- Downloading file : ' + csv_file)
     wrapper      = FileWrapper(open(csv_file))
     content_type = mimetypes.guess_type(csv_file)[0]
     response     = HttpResponse(wrapper,content_type=content_type)

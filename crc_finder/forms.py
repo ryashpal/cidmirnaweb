@@ -13,7 +13,13 @@ class TextForm(forms.Form):
     ('no_ppi', 'PPI unknown')
     ]
 
+    MODEL_CHOICES = [
+    ('cnn', 'CNN'),
+    ('rfc', 'RFC')
+    ]
+
     ppi = forms.ChoiceField(choices = PPI_CHOICES)
+    model_choice = forms.ChoiceField(choices = MODEL_CHOICES)
     # cut_off = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'step': 0.01, 'min': 0.5, 'max': 0.99, 'value' : 0.8, 'id':'cut_off_range'}), required=False)
 
 

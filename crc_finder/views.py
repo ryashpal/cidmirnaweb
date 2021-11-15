@@ -14,8 +14,10 @@ import logging
 
 print('Settings : ', settings)
 
-data_df = pd.read_csv(settings.DATA_FILE)
-data_df2 = pd.read_csv(settings.DATA_FILE2)
+data_df_cnn = pd.read_csv(settings.DATA_FILE)
+data_df2_cnn = pd.read_csv(settings.DATA_FILE2)
+data_df_rfc = pd.read_csv(settings.DATA_FILE3)
+data_df2_rfc = pd.read_csv(settings.DATA_FILE4)
 
 
 def CRC_search(gene_names, all_motifs, data_df):
@@ -68,12 +70,14 @@ def get_crc(request):
             gene_data = form.cleaned_data['gene_search']
             crc_cutoff = form.cleaned_data['cut_off']
             ppi = form.cleaned_data['ppi']
+            model_choice = form.cleaned_data['model_choice']
 
             if motif_data == 'undefined':
                 motif_data = ''
                 gene_data = ''
                 crc_cutoff = '0.8'
                 ppi = 'ppi'
+                model_choice = 'cnn'
             
             if crc_cutoff == None or crc_cutoff == '':
                 crc_cutoff = 0.8
@@ -85,9 +89,15 @@ def get_crc(request):
             print('CUT-OFF', type(crc_cutoff))
             # print('Motifs', all_motifs)
             if ppi == 'ppi':
-                result_df = CRC_search(all_gene_names, all_motifs, data_df)
+                if model_choice == 'cnn':
+                    result_df = CRC_search(all_gene_names, all_motifs, data_df_cnn)
+                else:
+                    result_df = CRC_search(all_gene_names, all_motifs, data_df_rfc)
             elif ppi == 'no_ppi':
-                result_df = CRC_search(all_gene_names, all_motifs, data_df2)
+                if model_choice == 'cnn':
+                    result_df = CRC_search(all_gene_names, all_motifs, data_df2_cnn)
+                else:
+                    result_df = CRC_search(all_gene_names, all_motifs, data_df2_rfc)
 
             result_df = result_df.round({"CRC_score":2})
             result_df = result_df[['gene_name','cluster_motifs','CRC_score']]
@@ -307,7 +317,7 @@ def send_file(request, csv_file):
     import mimetypes
     
     csv_file = settings.TEMP_CSV_FILE + csv_file
-    csv_file = '.' + csv_file
+    # csv_file = '.' + csv_file
     print('Downloading file.. ', csv_file)
     logging.info('CRC FINDER --- Downloading file : ' + csv_file)
     wrapper      = FileWrapper(open(csv_file))

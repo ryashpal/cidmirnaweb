@@ -1,4 +1,4 @@
-{% extends "base12.html" %}
+las{% extends "base12.html" %}
 
 {% block content %}
 {% load static %}
@@ -22,7 +22,8 @@
   var motif_search = getUrlParameter('motif_search');
   var cut_off = getUrlParameter('cut_off');
   var ppi = getUrlParameter('ppi');
-  var url = '&gene_search=' + gene_search + '&motif_search=' + motif_search + '&cut_off=' + cut_off + '&ppi=' + ppi;
+  var model_choice = getUrlParameter('model_choice')
+  var url = '&gene_search=' + gene_search + '&motif_search=' + motif_search + '&cut_off=' + cut_off + '&ppi=' + ppi + '&model_choice=' + model_choice;
 
   function first_update() {
     var num_id = document.getElementById('first_id').href;
@@ -133,6 +134,7 @@
         flex-direction: row;font-size:20px;
         justify-content: space-around;'>
         <div >PPI-score selection: {{ data.ppi }}</div> 
+        <div >Model selection: {{ data.model_choice }}</div> 
         <div>Select CRC score cut-off: {{ data.cut_off }} </div>
         </div>
         <!-- <p>Value: <span id="cut_off_display"></span></p> -->

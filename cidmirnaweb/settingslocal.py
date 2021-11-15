@@ -52,6 +52,8 @@ RIBLAST_ROOT = '/home/monash/minor_thesis/workspace/RIblast'
 RIBLAST_DB = '/home/monash/minor_thesis/workspace/RIblast/mirbase.db/mirbase.db'
 
 # CRC_Finder
-DATA_FILE = './crc_finder/all_genes_CRCs.csv'
-DATA_FILE2 = './crc_finder/predicted_CRCs.csv'
+DATA_FILE = './crc_finder/predicted_TRAIN_CRCs2_CNN.csv'
+DATA_FILE2 = './crc_finder/predicted_VALIDATION_CRCs2_CNN.csv'
+DATA_FILE3 = './crc_finder/predicted_TRAIN_CRCs2_RFC.csv'
+DATA_FILE4 = './crc_finder/predicted_VALIDATION_CRCs2_RFC.csv'
 TEMP_CSV_FILE = './crc_finder/temp_csv_files/'

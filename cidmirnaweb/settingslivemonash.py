@@ -49,7 +49,9 @@ SPOTRNA_ROOT = '/home/cidmirna/SPOT-RNA-MODIFIED/SPOT-RNA'
 RIBLAST_ROOT = '/home/cidmirna/RIblast'
 RIBLAST_DB = '/home/cidmirna/RIblast/mirbase.db/mirbase.db'
 
-# CRC Finder
-DATA_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/all_genes_CRCs.csv'
-DATA_FILE2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_CRCs.csv'
-TEMP_CSV_FILE = '/crc_finder/temp_csv_files/'
+# CRC_Finder
+DATA_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_TRAIN_CRCs2_CNN.csv'
+DATA_FILE2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_VALIDATION_CRCs2_CNN.csv'
+DATA_FILE3 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_TRAIN_CRCs2_RFC.csv'
+DATA_FILE4 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_VALIDATION_CRCs2_RFC.csv'
+TEMP_CSV_FILE = './crc_finder/temp_csv_files/'

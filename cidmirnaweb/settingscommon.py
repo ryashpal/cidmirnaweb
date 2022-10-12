@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'analyses',
     'bioinformatics',
     'linc2function',
+    'rna_int',
 ]
 
 MIDDLEWARE = [

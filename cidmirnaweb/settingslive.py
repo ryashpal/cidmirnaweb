@@ -26,7 +26,7 @@ EMAIL_AVAILABLE = True
 EMAIL_HOST = 'localhost'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -38,3 +38,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'cidmirna.sqlite')
     }
 }
+
+# CRC_Finder
+DATA_FILE = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_TRAIN_CRCs2_CNN.csv'
+DATA_FILE2 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_VALIDATION_CRCs2_CNN.csv'
+DATA_FILE3 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_TRAIN_CRCs2_RFC.csv'
+DATA_FILE4 = '/home/cidmirna/cidmirnaweb/crc_finder/predicted_VALIDATION_CRCs2_RFC.csv'
+TEMP_CSV_FILE = './crc_finder/temp_csv_files/'
+

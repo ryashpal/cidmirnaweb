@@ -23,6 +23,7 @@ from analyses import views as analysesviews
 from cidmirnaweb import views as cidmirnawebviews
 from linc2function import views as linc2functionviews
 from crc_finder import views as crcfinderviews
+from rna_int import views as rnaintviews
 #from predict_crc import views as predictcrcviews
 
 urlpatterns = [
@@ -39,6 +40,13 @@ urlpatterns = [
     url(r'^download$', cidmirnawebviews.download, name='download'),
     url(r'^about$', cidmirnawebviews.about, name='about'),
     url(r'^submitted$', analysesviews.analysis_submitted, name='success'),
+    url(r'^about$', cidmirnawebviews.about, name='about'),
+    url(r'^mirna_list$', rnaintviews.mirna_list, name='mirna_list'),
+    url(r'^mirna_search$', rnaintviews.mirna_search, name='mirna_search'),
+    url(r'^entity_list$', rnaintviews.entity_list, name='entity_list'),
+    url(r'^entity_search$', rnaintviews.entity_search, name='entity_search'),
+    url(r'^mirna_entity_list$', rnaintviews.mirna_entity_list, name='mirna_entity_list'),
+    url(r'^mirna_entity_search$', rnaintviews.mirna_entity_search, name='mirna_entity_search'),
 #    url('predict_crc/', predictcrcviwes.file_upload),
 
     url(r'^people$', views.people, name='people'),

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Entities{% endblock %}
+{% block content %}
+<!-- search user -->
+
+<div class="page-header">
+    <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form" method="post" action="{% url 'entity_search' %}">
+               <!-- avoid CSRF verification failed error. -->
+               {% csrf_token %}
+            <div class="form-group">
+               <input name="entity_type" type="text" placeholder="Type" class="form-control" value="{{ search_entity_type }}">
+               <input name="name" type="text" placeholder="Name" class="form-control" value="{{ search_name }}">
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+</div>
+ <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Entities</div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-responsive-md">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Species</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entity_list %}
+                    <tr>
+                        <td>{{ entity.species }}</td>
+                        <td>{{ entity.entity_type }}</td>
+                        <td>
+                            <a href="mirna_entity_search?entity_type={{ entity.entity_type }}&entity_name={{ entity.name }}">{{ entity.name }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="pagination container">
+    <span class="step-links">
+        {% if entity_list.has_previous %}
+            <a class="btn btn-primary btn-sm" href="{{ base_url }}page=1">&laquo; first</a>
+            <a class="btn btn-primary btn-sm" href="{{ base_url }}page={{ entity_list.previous_page_number }}">previous</a>
+        {% else %}
+            <a class="btn btn-primary btn-sm disabled" href="#">&laquo; first</a>
+            <a class="btn btn-primary btn-sm disabled" href="#">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ entity_list.number }} of {{ paginator.num_pages }}.
+        </span>
+
+        {% if entity_list.has_next %}
+            <a class="btn btn-primary btn-sm" href="{{ base_url }}page={{ entity_list.next_page_number }}">next</a>
+            <a class="btn btn-primary btn-sm" href="{{ base_url }}page={{ paginator.num_pages }}">last &raquo;</a>
+        {% else %}
+            <a class="btn btn-primary btn-sm disabled" href="#">next</a>
+            <a class="btn btn-primary btn-sm disabled" href="#">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock content %}

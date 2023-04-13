@@ -45,8 +45,8 @@ urlpatterns = [
     url(r'^mirna_search$', rnaintviews.mirna_search, name='mirna_search'),
     url(r'^entity_list$', rnaintviews.entity_list, name='entity_list'),
     url(r'^entity_search$', rnaintviews.entity_search, name='entity_search'),
-    url(r'^mirna_entity_list$', rnaintviews.mirna_entity_list, name='mirna_entity_list'),
-    url(r'^mirna_entity_search$', rnaintviews.mirna_entity_search, name='mirna_entity_search'),
+    url(r'^maternal_interactome$', rnaintviews.mirna_entity_list, name='mirna_entity_list'),
+    url(r'^maternal_interactome_search$', rnaintviews.mirna_entity_search, name='mirna_entity_search'),
 #    url('predict_crc/', predictcrcviwes.file_upload),
 
     url(r'^people$', views.people, name='people'),

@@ -16,6 +16,7 @@
                <input name="entity_name" type="text" placeholder="Entity Name" class="form-control" value="{{ search_entity_name }}">
                <input name="entity_type" type="text" placeholder="Entity Type" class="form-control" value="{{ search_entity_type }}">
                <input name="database" type="text" placeholder="Database" class="form-control" value="{{ search_database }}">
+               <input name="support" type="number" min="0" step="1" placeholder="Support" class="form-control" value="{{ search_support }}">
             </div>
             <button type="submit" class="btn btn-success">Search</button>
         </form>
@@ -23,7 +24,7 @@
 </div>
  <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Mi RNA Interactions</div>
+    <div class="panel-heading">Maternal Interactome</div>
     <div class="panel-body">
         <table class="table table-striped table-bordered table-responsive-md">
             <thead class="thead-dark">
@@ -62,6 +63,15 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="panel-footer">
+        <h3>Help Menu</h3>
+        <p class="text-sm-left">Pre miRNA: Name of the Pre MiRNA. ex: hsa-mir-23b</p>
+        <p class="text-sm-left">Mature miRNA: Name of the Mature MiRNA. ex: hsa-miR-23b-3p</p>
+        <p class="text-sm-left">Interactor Name: Name of the entity interacting with MiRNA. ex: c-met</p>
+        <p class="text-sm-left">Entity Name: Type of the entity interacting with MiRNA. It can be either "Gene", "Protein", or "LncRNA"</p>
+        <p class="text-sm-left">Database: Name of the support database, ex: Starbase</p>
+        <p class="text-sm-left">Support: Minimum support value</p>
     </div>
 </div>
 

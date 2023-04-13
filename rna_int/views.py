@@ -95,7 +95,7 @@ def mirna_entity_list(request):
     paginate_result = do_paginate(mirnaEntityList, page_number)
     mirnaEntityList = paginate_result[0]
     paginator = paginate_result[1]
-    base_url = 'mirna_entity_list?'
+    base_url = 'maternal_interactome?'
     return render(request, 'mirna_entity_list.html',
                       {'mirna_entity_list': mirnaEntityList, 'paginator' : paginator, 'base_url': base_url})
 
@@ -122,13 +122,21 @@ def mirna_entity_search(request):
     if len(database) == 0:
         database = request.GET.get('database', '').strip()
 
-    mirnaEntityList = MirnaEntity.objects.filter(pre_mirna__contains=preMirna).filter(mature_mirna__contains=matureMirna).filter(entity_type__contains=entityType).filter(entity_name__contains=entityName).filter(database__contains=database)
+    support = request.POST.get('support', '').strip()
+    if len(support) == 0:
+        support = request.GET.get('support', '').strip()
+    
+    supportInt = 0
+    if support.isnumeric():
+        supportInt = int(support)
+
+    mirnaEntityList = MirnaEntity.objects.filter(pre_mirna__contains=preMirna).filter(mature_mirna__contains=matureMirna).filter(entity_type__contains=entityType).filter(entity_name__contains=entityName).filter(database__contains=database).filter(occurrence__gte=supportInt)
 
     page_number = request.GET.get('page', 1)
     paginate_result = do_paginate(mirnaEntityList, page_number)
     mirnaEntityList = paginate_result[0]
     paginator = paginate_result[1]
-    base_url = 'mirna_entity_search?pre_mirna=' + preMirna + '&mature_mirna=' + matureMirna + '&entity_type=' + entityType + '&entity_name=' + entityName + '&database=' + database + '&'
+    base_url = 'maternal_interactome_search?pre_mirna=' + preMirna + '&mature_mirna=' + matureMirna + '&entity_type=' + entityType + '&entity_name=' + entityName + '&database=' + database + '&support=' + support
 
     return render(request, 'mirna_entity_list.html',
                       {
@@ -140,6 +148,7 @@ def mirna_entity_search(request):
                         , 'search_entity_type': entityType
                         , 'search_entity_name': entityName
                         , 'search_database': database
+                        , 'search_support': support
                       }
                 )
 
